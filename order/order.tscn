@@ -1,0 +1,182 @@
+[gd_scene load_steps=4 format=3 uid="uid://che5wa3etilof"]
+
+[ext_resource type="Script" path="res://order/order.gd" id="1_lmkxn"]
+[ext_resource type="Texture2D" uid="uid://dwi8ivn4f36yw" path="res://assets/images/ax.png" id="2_lvduh"]
+[ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://main_theme.tres" id="3_fexv2"]
+
+[node name="Order" type="Control"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 3
+anchor_right = 0.273
+anchor_bottom = 0.556
+offset_right = 0.559998
+offset_bottom = -0.320038
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lmkxn")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 3.657
+anchor_bottom = 1.8
+offset_right = 0.0499268
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.41
+anchor_right = 3.277
+anchor_bottom = 1.41
+offset_left = -73.0
+offset_right = -69.9501
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelMargin" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/PanelMargin"]
+layout_mode = 2
+
+[node name="PanelVBox" type="VBoxContainer" parent="Panel/PanelMargin/HBoxContainer"]
+custom_minimum_size = Vector2(550, 0)
+layout_mode = 2
+
+[node name="ItemImage" type="TextureRect" parent="Panel/PanelMargin/HBoxContainer/PanelVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+texture = ExtResource("2_lvduh")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="TitleMargin" type="MarginContainer" parent="Panel/PanelMargin/HBoxContainer/PanelVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 20
+
+[node name="ItemTitle" type="RichTextLabel" parent="Panel/PanelMargin/HBoxContainer/PanelVBox/TitleMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_fexv2")
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+text = "Pellentesque Nec Orci"
+fit_content = true
+
+[node name="DescMargin" type="MarginContainer" parent="Panel/PanelMargin/HBoxContainer/PanelVBox"]
+layout_mode = 2
+theme = ExtResource("3_fexv2")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 20
+
+[node name="ItemDesc" type="RichTextLabel" parent="Panel/PanelMargin/HBoxContainer/PanelVBox/DescMargin"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+theme = ExtResource("3_fexv2")
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 25
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non sapien sit amet eros scelerisque vehicula in ut felis."
+fit_content = true
+
+[node name="BackMargin" type="MarginContainer" parent="Panel/PanelMargin/HBoxContainer/PanelVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 20
+
+[node name="BackButton" type="Button" parent="Panel/PanelMargin/HBoxContainer/PanelVBox/BackMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/PanelMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="PriceMargin" type="MarginContainer" parent="Panel/PanelMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 40
+
+[node name="ItemPrice" type="RichTextLabel" parent="Panel/PanelMargin/HBoxContainer/VBoxContainer/PriceMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_fexv2")
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[center]$1.99[/center]"
+fit_content = true
+
+[node name="QuantityMargin" type="MarginContainer" parent="Panel/PanelMargin/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/PanelMargin/HBoxContainer/VBoxContainer/QuantityMargin"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/PanelMargin/HBoxContainer/VBoxContainer/QuantityMargin/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 50
+
+[node name="Label" type="Label" parent="Panel/PanelMargin/HBoxContainer/VBoxContainer/QuantityMargin/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Quantity"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/PanelMargin/HBoxContainer/VBoxContainer/QuantityMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+placeholder_text = "1"
+alignment = 2
+
+[node name="AddToCartMargin" type="MarginContainer" parent="Panel/PanelMargin/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+
+[node name="AddToCartBtn" type="Button" parent="Panel/PanelMargin/HBoxContainer/VBoxContainer/AddToCartMargin"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Add to Cart"
+
+[node name="BuyNowMargin" type="MarginContainer" parent="Panel/PanelMargin/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+
+[node name="BuyNowBtn" type="Button" parent="Panel/PanelMargin/HBoxContainer/VBoxContainer/BuyNowMargin"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Buy Now"
+
+[connection signal="pressed" from="Panel/PanelMargin/HBoxContainer/PanelVBox/BackMargin/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Panel/PanelMargin/HBoxContainer/VBoxContainer/AddToCartMargin/AddToCartBtn" to="." method="_on_add_to_cart_btn_pressed"]
+[connection signal="pressed" from="Panel/PanelMargin/HBoxContainer/VBoxContainer/BuyNowMargin/BuyNowBtn" to="." method="_on_buy_now_btn_pressed"]

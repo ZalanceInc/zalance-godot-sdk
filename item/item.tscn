@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhw85att0c57b"]
+
+[ext_resource type="Script" path="res://item/item.gd" id="1_jyaq1"]
+[ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://main_theme.tres" id="2_iik5d"]
+[ext_resource type="Texture2D" uid="uid://dwi8ivn4f36yw" path="res://assets/images/ax.png" id="3_v46km"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qcmq6"]
+
+[node name="Item" type="Control"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 3
+anchor_right = 0.273
+anchor_bottom = 0.556
+offset_right = 0.559998
+offset_bottom = -0.320038
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jyaq1")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelMargin" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 2
+
+[node name="PanelVBox" type="VBoxContainer" parent="Panel/PanelMargin"]
+layout_mode = 2
+
+[node name="ItemImage" type="TextureRect" parent="Panel/PanelMargin/PanelVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+texture = ExtResource("3_v46km")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="TitleMargin" type="MarginContainer" parent="Panel/PanelMargin/PanelVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 20
+
+[node name="ItemTitle" type="RichTextLabel" parent="Panel/PanelMargin/PanelVBox/TitleMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_iik5d")
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+text = "Item Name"
+fit_content = true
+
+[node name="PriceMarginContainer" type="MarginContainer" parent="Panel/PanelMargin/PanelVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+
+[node name="ItemButton" type="Button" parent="Panel/PanelMargin/PanelVBox/PriceMarginContainer"]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_qcmq6")
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme = ExtResource("2_iik5d")
+theme_override_font_sizes/font_size = 25
+text = "$1.99"
+
+[connection signal="pressed" from="Panel/PanelMargin/PanelVBox/PriceMarginContainer/ItemButton" to="." method="_on_item_button_pressed"]
