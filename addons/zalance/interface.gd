@@ -24,4 +24,7 @@ func _on_livemode_check_box_pressed():
 
 func _on_button_pressed():
 	print("getting zalance prices")
-	var result = Zalance.new().get_prices(50, 1)
+	var result = Zalance.new().get_prices(50, 1, _get_prices_completed)
+
+func _get_prices_completed(items):
+	pass
