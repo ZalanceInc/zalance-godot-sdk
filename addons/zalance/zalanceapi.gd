@@ -5,7 +5,7 @@ const API_PUBLIC_DOMAIN = "https://api.zalance.net/api:Kp9D5gmw"
 const API_PRICES_GET = API_PUBLIC_DOMAIN + '/price/{project_uuid}'
 const API_SESSION_CREATE = API_PUBLIC_DOMAIN + '/session'
 const API_SESSION_STATUS = API_PUBLIC_DOMAIN + '/session/status'
-var project_id = "bb632f31-9e6b-439f-8f9a-1d019085a391"
+var project_id = ""
 var account_id = "1120456E26F41EFC"
 var livemode = false
 var automatic_tax = true
@@ -25,8 +25,12 @@ signal checkout_created(id)
 signal checkout_status(json)
 
 func _ready():
-	print("zalance is ready!")
-	pass
+	load_data()
+
+func load_data() -> void:
+	var data:ZalanceData = load(ZalanceData.save_path)
+	project_id = data.project_id
+	livemode = data.livemode
 
 func get_prices(count: int, page: int, callback: Callable):
 	var url = API_PRICES_GET.format({"project_uuid": project_id})

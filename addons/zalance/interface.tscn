@@ -29,6 +29,7 @@ offset_top = 15.0
 offset_right = 731.0
 offset_bottom = 54.0
 scale = Vector2(0.776368, 0.613043)
+text = "bb632f31-9e6b-439f-8f9a-1d019085a391"
 
 [node name="ProjectIdLabel" type="RichTextLabel" parent="."]
 layout_mode = 1
@@ -53,6 +54,7 @@ offset_left = 128.479
 offset_top = 50.0
 offset_right = 152.479
 offset_bottom = 74.0
+button_pressed = true
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="text_changed" from="ProjectId" to="." method="_on_project_id_text_changed"]
