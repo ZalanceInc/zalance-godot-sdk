@@ -1,9 +1,9 @@
 @tool
 extends Control
 
-var livemode = false
 var projectId = ""
-
+var return_url = ""
+var livemode = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,7 +18,12 @@ func _process(delta):
 
 func _on_project_id_text_changed():
 	projectId = $ProjectId.text
-	print("projectId: " + projectId)
+	#print("projectId: " + projectId)
+	save()
+
+func _on_return_url_text_changed():
+	return_url = $ReturnUrl.text
+	print("return_url: " + return_url)
 	save()
 
 func _on_livemode_check_box_pressed():
@@ -34,20 +39,24 @@ func _get_prices_completed(items):
 	pass
 
 func save() -> void:
-	print('saving data')
+	#print('saving data')
 	var data := ZalanceData.new()
 	data.project_id = projectId
+	data.return_url = return_url
 	data.livemode = livemode
 
 	var error := ResourceSaver.save(data, ZalanceData.save_path)
 	if error:
 		print("An error happened while saving data: ", error)
-	#else:
-		#print("Zalance data saved.")
+	else:
+		print("Zalance data saved.")
 
 func load_data() -> void:
 	var data:ZalanceData = load(ZalanceData.save_path)
 	projectId = data.project_id
 	$ProjectId.text = projectId
+	return_url = data.return_url
+	$ReturnUrl.text = return_url
 	livemode = data.livemode
 	$LivemodeCheckBox.button_pressed = livemode
+	

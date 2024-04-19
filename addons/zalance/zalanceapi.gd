@@ -6,6 +6,7 @@ const API_PRICES_GET = API_PUBLIC_DOMAIN + '/price/{project_uuid}'
 const API_SESSION_CREATE = API_PUBLIC_DOMAIN + '/session'
 const API_SESSION_STATUS = API_PUBLIC_DOMAIN + '/session/status'
 var project_id = ""
+var return_url = ""
 var account_id = "1120456E26F41EFC"
 var livemode = false
 var automatic_tax = true
@@ -19,8 +20,23 @@ var _prices_prev_page = null
 var _get_prices_callable: Callable = func(): pass
 var _checkout_created_callable: Callable = func(): pass
 var _checkout_status_callable: Callable = func(): pass
+const API_ZALANCE_HELP_MSG = " Check your project Id in the Zalance panel is correct. If you continue to have problems, contact supporet@zalance.net"
+const API_PRICE_FAIL_MSG = "Error retrieving prices."
+const API_CREATE_CHECKOUT_MSG = "Error creating checkout."
+const API_CHECKOUT_STATUS_MSG = "Error getting checkout status."
 
-signal prices_received
+class ZalanceResponse:
+	var message: String = ""
+	var error: bool = false
+	var result = 0
+	var response_code = 0
+	var data = {}
+	
+	func _init(_result, _response_code):
+		result = _result
+		response_code = _response_code
+
+signal prices_received(response: ZalanceResponse)
 signal checkout_created(id)
 signal checkout_status(json)
 
@@ -30,9 +46,10 @@ func _ready():
 func load_data() -> void:
 	var data:ZalanceData = load(ZalanceData.save_path)
 	project_id = data.project_id
+	return_url = data.return_url
 	livemode = data.livemode
 
-func get_prices(count: int, page: int, callback: Callable):
+func get_prices(count: int, page: int, callback: Callable):	
 	var url = API_PRICES_GET.format({"project_uuid": project_id})
 	var err := request(url, [], HTTPClient.METHOD_POST)
 	if err:
@@ -40,24 +57,36 @@ func get_prices(count: int, page: int, callback: Callable):
 	
 	_get_prices_callable = callback
 	request_completed.connect(_on_prices_completed)
+	return err
 
 func _on_prices_completed(result, response_code, headers, body):
+	var response = ZalanceResponse.new(result, response_code)
 	request_completed.disconnect(_on_prices_completed)
 	if result != RESULT_SUCCESS:
-		push_error("Prices couldn't be fetched. Check your project Id is correct and try again. If you continue to have problems, contact support@zalance.net")
-		_signal_prices_received(null)
+		push_error(API_PRICE_FAIL_MSG + API_ZALANCE_HELP_MSG)
+		response.error = true
+		response.message = API_PRICE_FAIL_MSG
+		_signal_prices_received(response)
 		return
 	
 	json = JSON.parse_string(body.get_string_from_utf8());
 	
 	if response_code != HTTPClient.RESPONSE_OK:
-		push_error("Zalance: failed to get prices. " + json.message)
-		_signal_prices_received(null)
+		var msg = "Could not retrieve prices. " + json.message
+		push_error("Zalance: " + msg)
+		response.error = true
+		response.message = msg
+		_signal_prices_received(response)
 	else:
 		_prices = json.items
 		_prices_next_page = json.nextPage
 		_prices_prev_page = json.prevPage
-		_signal_prices_received(_prices)
+		response.data = {
+			"items": json.items,
+			"next_page": json.nextPage,
+			"prev_page": json.prevPage
+		}
+		_signal_prices_received(response)
 
 func get_last_prices():
 	return _prices;
@@ -72,7 +101,7 @@ func create_checkout_session(price_id, quantity, callback: Callable) -> int:
 	var body = JSON.stringify({
 		"project_uuid": project_id,
 		"account_id": account_id,
-		"return_url": "https://zalance.net",
+		"return_url": return_url,
 		"success_url": "https://zalance.net",
 		"line_items": lineItems,
 		"automatic_tax": automatic_tax,
@@ -85,24 +114,33 @@ func create_checkout_session(price_id, quantity, callback: Callable) -> int:
 	
 	_checkout_created_callable = callback
 	request_completed.connect(_on_create_checkout_session_completed)
-	return 0
+	return err
 
 func _on_create_checkout_session_completed(result, response_code, headers, body):
 	request_completed.disconnect(_on_create_checkout_session_completed)
+	var response = ZalanceResponse.new(result, response_code)
 	if result != RESULT_SUCCESS:
-		push_error("Checkout session couldn't be created. Check your project Id is correct and try again. If you continue to have problems, contact support@zalance.net")
-		_signal_checkout_created(null)
+		push_error(API_CREATE_CHECKOUT_MSG + API_ZALANCE_HELP_MSG)
+		response.error = true
+		response.message = API_CREATE_CHECKOUT_MSG
+		_signal_checkout_created(response)
 		return
 	
 	json = JSON.parse_string(body.get_string_from_utf8());
 	
 	if response_code != HTTPClient.RESPONSE_OK:
-		push_error("Zalance: Error in create checkout session. " + json.message)
-		_signal_checkout_created(null)
+		var msg = API_CREATE_CHECKOUT_MSG + " " + json.message
+		push_error(API_CREATE_CHECKOUT_MSG)
+		response.error = true
+		response.message = msg
+		_signal_checkout_created(response)
 	else:
 		_session_id = json.id
 		_create_checkout_browser(json.url)
-		_signal_checkout_created(_session_id)
+		response.data = {
+			"session_id": json.id
+		}
+		_signal_checkout_created(response)
 
 func _create_checkout_browser(url):
 	print(url)
@@ -128,22 +166,29 @@ func get_checkout_session_status(callback: Callable):
 
 func _on_get_session_status_completed(result, response_code, headers, body):
 	request_completed.disconnect(_on_get_session_status_completed)
+	var response = ZalanceResponse.new(result, response_code)
 	if result != RESULT_SUCCESS:
-		push_error("Prices couldn't be fetched. Check your project Id is correct and try again. If you continue to have problems, contact support@zalance.net")
-		_signal_checkout_status(null)
+		push_error(API_CHECKOUT_STATUS_MSG + API_ZALANCE_HELP_MSG)
+		response.error = true
+		response.message = API_CHECKOUT_STATUS_MSG
+		_signal_checkout_status(response)
 		return
 	
 	json = JSON.parse_string(body.get_string_from_utf8());
 	
 	if response_code != HTTPClient.RESPONSE_OK:
-		push_error("Zalance: Error in get session status. " + json.message)
-		_signal_checkout_status(null)
+		var msg = API_CREATE_CHECKOUT_MSG + " " + json.message
+		push_error(API_CREATE_CHECKOUT_MSG)
+		response.error = true
+		response.message = msg
+		_signal_checkout_status(response)
 	else:
-		_signal_checkout_status(json)
+		response.data = json
+		_signal_checkout_status(response)
 
-func _signal_prices_received(value):
+func _signal_prices_received(response: ZalanceResponse):
 	prices_received.connect(_get_prices_callable)
-	prices_received.emit(value)
+	prices_received.emit(response)
 	prices_received.disconnect(_get_prices_callable)
 	_get_prices_callable = func(): pass
 

@@ -16,9 +16,9 @@ script = ExtResource("1_mn183")
 layout_mode = 1
 anchors_preset = -1
 offset_left = 2.00749
-offset_top = 104.0
+offset_top = 133.0
 offset_right = 142.007
-offset_bottom = 135.0
+offset_bottom = 164.0
 text = "Get Prices"
 
 [node name="ProjectId" type="TextEdit" parent="."]
@@ -31,6 +31,15 @@ offset_bottom = 54.0
 scale = Vector2(0.776368, 0.613043)
 text = "bb632f31-9e6b-439f-8f9a-1d019085a391"
 
+[node name="ReturnUrl" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 133.0
+offset_top = 72.0
+offset_right = 731.0
+offset_bottom = 111.0
+scale = Vector2(0.776368, 0.613043)
+
 [node name="ProjectIdLabel" type="RichTextLabel" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -38,24 +47,35 @@ offset_left = 1.0
 offset_top = 15.0
 offset_right = 126.0
 offset_bottom = 39.0
+tooltip_text = "The unique identifier of your project."
 text = "Project Id"
+
+[node name="ReturnUrlLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1.0
+offset_top = 72.0
+offset_right = 126.0
+offset_bottom = 96.0
+tooltip_text = "The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method’s app or site."
+text = "Return URL"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 1.0
-offset_top = 50.0
+offset_top = 45.0
 offset_right = 126.0
-offset_bottom = 74.0
+offset_bottom = 69.0
 text = "Live Mode"
 
 [node name="LivemodeCheckBox" type="CheckBox" parent="."]
 layout_mode = 0
 offset_left = 128.479
-offset_top = 50.0
+offset_top = 45.0
 offset_right = 152.479
-offset_bottom = 74.0
-button_pressed = true
+offset_bottom = 69.0
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="text_changed" from="ProjectId" to="." method="_on_project_id_text_changed"]
+[connection signal="text_changed" from="ReturnUrl" to="." method="_on_return_url_text_changed"]
 [connection signal="pressed" from="LivemodeCheckBox" to="." method="_on_livemode_check_box_pressed"]

@@ -63,6 +63,26 @@ bbcode_enabled = true
 text = "[font_size=40][b]Store[/b][/font_size]"
 fit_content = true
 
+[node name="MessageMargin" type="MarginContainer" parent="Control/VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+
+[node name="StoreMessage" type="RichTextLabel" parent="Control/VBoxContainer/Header/MessageMargin"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+theme = ExtResource("3_tujj8")
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_1v62m")
+theme_override_fonts/bold_font = ExtResource("5_xwvyb")
+theme_override_fonts/italics_font = ExtResource("6_dpx28")
+theme_override_fonts/bold_italics_font = ExtResource("7_1so4y")
+theme_override_font_sizes/normal_font_size = 20
+text = "this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. "
+
 [node name="GridScroll" type="ScrollContainer" parent="Control/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2

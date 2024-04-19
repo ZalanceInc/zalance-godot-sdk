@@ -1,6 +1,6 @@
 extends Node
 
-const CHECKOUT_WAIT_TIME = 2.0
+const CHECKOUT_WAIT_TIME = 4.0
 var checkout_timer: Timer = Timer.new()
 
 func _ready():
@@ -15,17 +15,22 @@ func _ready():
 	Events.connect("item_buy_now", self._on_item_buy_now)
 	Events.connect("order_back_press", self._on_order_back_press)
 	
-	ZalanceSDK.get_prices(50, 1, _on_prices_received)
-
+	%StoreMessage.text = ""
+	var err = ZalanceSDK.get_prices(50, 1, _on_prices_received)
+	if err:
+		%StoreMessage.text = "There was an error while retrieving store items. Error: " + String(err)
+	
 func _process(_delta):
 	pass
 
 func _exit_tree():
 	pass
 
-func _on_prices_received(prices):
-	if prices != null:
-		%ItemGrid.set_items(prices)
+func _on_prices_received(response):
+	if response.error:
+		%StoreMessage.text = response.message
+	else:
+		%ItemGrid.set_items(response.data.items)
 
 func _on_item_clicked(item):
 	%Order.visible = true
@@ -40,21 +45,29 @@ func _on_item_add_to_cart(item):
 	print("Item add to cart was clicked!")
 
 func _on_item_buy_now(price_id, quantity):
-	ZalanceSDK.create_checkout_session(price_id, quantity, _on_checkout_created)
+	var err = ZalanceSDK.create_checkout_session(price_id, quantity, _on_checkout_created)
+	if err:
+		%StoreMessage.text = "There was an error while creating checkout. Error: " + String(err)
 
-func _on_checkout_created(id):
-	if id != null:
+func _on_checkout_created(response):
+	if response.error:
+		%StoreMessage.text = response.message
+	else:
 		checkout_timer.start(CHECKOUT_WAIT_TIME)
 
 func _on_checkout_timer_complete():
-	ZalanceSDK.get_checkout_session_status(_on_checkout_status)
-	
-func _on_checkout_status(session):
-	if session == null:
+	var err = ZalanceSDK.get_checkout_session_status(_on_checkout_status)
+	if err:
+		%StoreMessage.text = "There was an error updating the checkout status. Error: " + String(err)
+		
+func _on_checkout_status(response):
+	if response.error:
+		%StoreMessage.text = response.message
+	if response.data == null:
 		pass
-	elif session.status == "expired":
+	elif response.data.status == "expired":
 		pass
-	elif session.status == "complete":
-		Events.checkout_complete.emit(session)
-	elif session.status == "":
-		_on_checkout_created(session.session_id)
+	elif response.data.status == "complete":
+		Events.checkout_complete.emit(response.data)
+	elif response.data.status == "":
+		_on_checkout_created(response)
