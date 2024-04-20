@@ -7,7 +7,6 @@ var items: PackedByteArray = []
 func _ready():
 	pass
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 	#pass
@@ -19,6 +18,9 @@ func _remove_children():
 	
 func set_items(items):
 	_remove_children()
+	append_items(items)
+		
+func append_items(items):
 	for item in items:
 		_add_item(item)
 

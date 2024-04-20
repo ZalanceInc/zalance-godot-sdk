@@ -25,45 +25,17 @@ func set_data(item_data):
 func set_image(url: String):
 	_image_url = url
 	if _image_url != null and _image_url.length() > 0:
-		_loadImage(_image_url)
-
-func _loadImage(url):
-	var http_request = HTTPRequest.new()
-	add_child(http_request)
-	http_request.request_completed.connect(self._on_image_request_complete)
-	
-	var error = http_request.request(url)		#_image_url	#"https://via.placeholder.com/64"
-	if error != OK:
-		var msg = "An error occurred in the HTTP request. error: " + String(error)
-		push_error(msg)
+		ZalanceSDK.get_image(_image_url, _on_image_request_complete)
 
 # Called when the Image request is completed.
-func _on_image_request_complete(result, response_code, headers, body):
-	if result != HTTPRequest.RESULT_SUCCESS:
-		var msg = "An error occurred downloading image. result: " + String(result)
-		push_error(msg)
-	
-	# Handle redirect
-	if response_code >= 300 and response_code < 400:
-		var url = body.get_string_from_utf8()
-		if url != null and url.length() > 0:
-			_loadImage(url)
+func _on_image_request_complete(response):
+	if response.error:
+		push_error("Couldn't load the image: " + _image_url)
 		return
 	
-	var headersArray = Array(headers)
-	var is_png = headersArray.any(is_header_png)
-	
-	var image = Image.new()
-	var error = null
-	if is_png:
-		error = image.load_png_from_buffer(body)
-	else:
-		error = image.load_jpg_from_buffer(body)
-	if error != OK:
-		push_error("Couldn't load the image.")
-	
+	var image = response.data.image
 	var texture = ImageTexture.create_from_image(image)
-	
+
 	# Display the image in a TextureRect node.
 	%ItemImage.texture = texture
 	

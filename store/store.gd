@@ -2,6 +2,8 @@ extends Node
 
 const CHECKOUT_WAIT_TIME = 4.0
 var checkout_timer: Timer = Timer.new()
+var next_page = null
+var prev_page = null
 
 func _ready():
 	checkout_timer.one_shot = true;
@@ -30,7 +32,9 @@ func _on_prices_received(response):
 	if response.error:
 		%StoreMessage.text = response.message
 	else:
-		%ItemGrid.set_items(response.data.items)
+		%ItemGrid.append_items(response.data.items)
+		next_page = response.data.next_page
+		prev_page = response.data.prev_page
 
 func _on_item_clicked(item):
 	%Order.visible = true
@@ -59,7 +63,7 @@ func _on_checkout_timer_complete():
 	var err = ZalanceSDK.get_checkout_session_status(_on_checkout_status)
 	if err:
 		%StoreMessage.text = "There was an error updating the checkout status. Error: " + String(err)
-		
+
 func _on_checkout_status(response):
 	if response.error:
 		%StoreMessage.text = response.message

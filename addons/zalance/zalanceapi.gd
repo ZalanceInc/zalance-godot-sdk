@@ -20,10 +20,12 @@ var _prices_prev_page = null
 var _get_prices_callable: Callable = func(): pass
 var _checkout_created_callable: Callable = func(): pass
 var _checkout_status_callable: Callable = func(): pass
+var _image_callable: Callable = func(): pass
 const API_ZALANCE_HELP_MSG = " Check your project Id in the Zalance panel is correct. If you continue to have problems, contact supporet@zalance.net"
 const API_PRICE_FAIL_MSG = "Error retrieving prices."
 const API_CREATE_CHECKOUT_MSG = "Error creating checkout."
 const API_CHECKOUT_STATUS_MSG = "Error getting checkout status."
+const API_IMAGE_MSG = "Error retrieving image"
 
 class ZalanceResponse:
 	var message: String = ""
@@ -39,6 +41,7 @@ class ZalanceResponse:
 signal prices_received(response: ZalanceResponse)
 signal checkout_created(id)
 signal checkout_status(json)
+signal image_received(image)
 
 func _ready():
 	load_data()
@@ -78,18 +81,12 @@ func _on_prices_completed(result, response_code, headers, body):
 		response.message = msg
 		_signal_prices_received(response)
 	else:
-		_prices = json.items
-		_prices_next_page = json.nextPage
-		_prices_prev_page = json.prevPage
 		response.data = {
 			"items": json.items,
 			"next_page": json.nextPage,
 			"prev_page": json.prevPage
 		}
 		_signal_prices_received(response)
-
-func get_last_prices():
-	return _prices;
 
 func create_checkout_session(price_id, quantity, callback: Callable) -> int:
 	var url = API_SESSION_CREATE
@@ -186,6 +183,65 @@ func _on_get_session_status_completed(result, response_code, headers, body):
 		response.data = json
 		_signal_checkout_status(response)
 
+func get_image(image_url: String, callback: Callable):
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	var err = http_request.request(image_url)
+	if err:
+		push_error(API_IMAGE_MSG + " image: " + image_url)
+		return err
+	
+	#_image_callable = callback
+	#http_request.connect()
+	http_request.request_completed.connect(_on_image_request_complete.bind(callback, http_request) )
+	return err
+
+# Called when the Image request is completed.
+func _on_image_request_complete(result, response_code, headers, body, callback, http_request):
+	#request_completed.disconnect(_on_image_request_complete)
+	remove_child(http_request)
+	var response = ZalanceResponse.new(result, response_code)
+	if result != HTTPRequest.RESULT_SUCCESS:
+		push_error(API_IMAGE_MSG + API_ZALANCE_HELP_MSG)
+		response.error = true
+		response.message = API_IMAGE_MSG
+		_signal_image_received(response, callback)
+		return
+	
+	# Handle redirect
+	if response_code >= 300 and response_code < 400:
+		var url = body.get_string_from_utf8()
+		if url != null and url.length() > 0:
+			get_image(url, callback)
+			return
+	
+	if response_code != HTTPClient.RESPONSE_OK:
+		var msg = API_CREATE_CHECKOUT_MSG + " " + json.message
+		push_error(API_CREATE_CHECKOUT_MSG)
+		response.error = true
+		response.message = msg
+		_signal_image_received(response, callback)
+	else:
+		var image = Image.new()
+		var headersArray = Array(headers)
+		var error = null
+		var is_png = headersArray.any(is_header_png)
+		if is_png:
+			error = image.load_png_from_buffer(body)
+		else:
+			error = image.load_jpg_from_buffer(body)
+		if error != OK:
+			push_error("Couldn't load the image.")
+		
+		#var texture = ImageTexture.create_from_image(image)
+		response.data = {
+			"image": image
+		}
+		_signal_image_received(response, callback)
+
+func is_header_png(value):
+	return value.begins_with("Content-Type") and value.ends_with("image/png")
+
 func _signal_prices_received(response: ZalanceResponse):
 	prices_received.connect(_get_prices_callable)
 	prices_received.emit(response)
@@ -203,3 +259,8 @@ func _signal_checkout_status(value):
 	checkout_status.emit(value)
 	checkout_status.disconnect(_checkout_status_callable)
 	_checkout_status_callable = func(): pass
+	
+func _signal_image_received(response, callback):
+	image_received.connect(callback)
+	image_received.emit(response)
+	image_received.disconnect(callback)
