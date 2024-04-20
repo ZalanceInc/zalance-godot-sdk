@@ -90,13 +90,20 @@ size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/GridScroll"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 0
 
 [node name="ItemGrid" type="GridContainer" parent="Control/VBoxContainer/GridScroll/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 4
 script = ExtResource("8_4qdd0")
+
+[node name="Panel" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ItemGrid"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
 
 [node name="Footer" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2

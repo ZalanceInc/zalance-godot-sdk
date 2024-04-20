@@ -1,7 +1,7 @@
 @tool
 extends EditorPlugin
 
-const AUTOLOAD_NAME = "ZalanceSDK"
+const AUTOLOAD_NAME = "Zalance"
 const AUTOLOAD_SOURCE = "res://addons/zalance/zalanceapi.gd"
 var interface = preload("res://addons/zalance/interface.tscn").instantiate()
 

@@ -19,7 +19,7 @@ config/features=PackedStringArray("4.2")
 [autoload]
 
 Events="*res://store/events.gd"
-ZalanceSDK="*res://addons/zalance/zalanceapi.gd"
+Zalance="*res://addons/zalance/zalanceapi.gd"
 
 [display]
 

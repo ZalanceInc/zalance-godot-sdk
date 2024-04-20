@@ -18,7 +18,7 @@ func _ready():
 	Events.connect("order_back_press", self._on_order_back_press)
 	
 	%StoreMessage.text = ""
-	var err = ZalanceSDK.get_prices(50, 1, _on_prices_received)
+	var err = Zalance.get_prices(50, 1, _on_prices_received)
 	if err:
 		%StoreMessage.text = "There was an error while retrieving store items. Error: " + String(err)
 	
@@ -49,7 +49,7 @@ func _on_item_add_to_cart(item):
 	print("Item add to cart was clicked!")
 
 func _on_item_buy_now(price_id, quantity):
-	var err = ZalanceSDK.create_checkout_session(price_id, quantity, _on_checkout_created)
+	var err = Zalance.create_checkout_session(price_id, quantity, _on_checkout_created)
 	if err:
 		%StoreMessage.text = "There was an error while creating checkout. Error: " + String(err)
 
@@ -60,7 +60,7 @@ func _on_checkout_created(response):
 		checkout_timer.start(CHECKOUT_WAIT_TIME)
 
 func _on_checkout_timer_complete():
-	var err = ZalanceSDK.get_checkout_session_status(_on_checkout_status)
+	var err = Zalance.get_checkout_session_status(_on_checkout_status)
 	if err:
 		%StoreMessage.text = "There was an error updating the checkout status. Error: " + String(err)
 

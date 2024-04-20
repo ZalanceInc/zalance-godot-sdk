@@ -25,7 +25,7 @@ func set_data(item_data):
 func set_image(url: String):
 	_image_url = url
 	if _image_url != null and _image_url.length() > 0:
-		ZalanceSDK.get_image(_image_url, _on_image_request_complete)
+		Zalance.get_image(_image_url, _on_image_request_complete)
 
 # Called when the Image request is completed.
 func _on_image_request_complete(response):
