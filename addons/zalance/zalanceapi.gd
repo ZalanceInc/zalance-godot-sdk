@@ -45,7 +45,6 @@ func load_data() -> void:
 	project_id = data.project_id
 	return_url = data.return_url
 	livemode = data.livemode
-	print(livemode)
 	
 func get_prices(callback: Callable, count: int = 50, page: int = 1, locale: String = "en-US"):	
 	var body = JSON.stringify({

@@ -39,5 +39,5 @@ func _on_image_request_complete(response):
 	%ItemImage.texture = texture
 
 func _on_item_button_pressed():
-	ZalanceEvents.emit_signal("item_clicked", _item_data)
+	ZalanceSignals.item_clicked.emit(_item_data)
 	pass # Replace with function body.

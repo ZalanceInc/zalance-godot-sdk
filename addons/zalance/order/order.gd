@@ -15,8 +15,8 @@ func _ready():
 	checkout_timer.timeout.connect(_on_checkout_timer_complete)
 	add_child(checkout_timer)
 	
-	ZalanceEvents.connect("checkout_complete", self._on_checkout_complete)
-	ZalanceEvents.connect("item_buy_now", self._on_item_buy_now)
+	ZalanceSignals.checkout_complete.connect(self._on_checkout_complete)
+	ZalanceSignals.item_buy_now.connect(self._on_item_buy_now)
 	#ZalanceEvents.connect("item_clicked", self._on_item_clicked)
 	#ZalanceEvents.connect("item_add_to_cart", self._on_item_add_to_cart)
 	#ZalanceEvents.connect("order_back_press", self._on_order_back_press)
@@ -56,14 +56,14 @@ func is_header_png(value):
 	return value.begins_with("Content-Type") and value.ends_with("image/png")
 
 func _on_add_to_cart_btn_pressed():
-	ZalanceEvents.emit_signal("item_add_to_cart", _item_data)
+	ZalanceSignals.item_add_to_cart.emit(_item_data)
 
 func _on_buy_now_btn_pressed():
-	ZalanceEvents.emit_signal("item_buy_now", _item_data.price_id, _quantity)
+	ZalanceSignals.item_buy_now.emit(_item_data.price_id, _quantity)
 	_show_purchasing_button()
 
 func _on_back_button_pressed():
-	ZalanceEvents.emit_signal("order_back_press")
+	ZalanceSignals.order_back_press.emit()
 
 func _show_purchasing_button():
 	%BuyNowBtn.text = "Processing..."
@@ -108,7 +108,7 @@ func _on_checkout_status(response):
 	elif response.data.status == "expired":
 		pass
 	elif response.data.status == "complete":
-		ZalanceEvents.checkout_complete.emit(response.data)
+		ZalanceSignals.checkout_complete.emit(response.data)
 	elif response.data.status == "":
 		_on_checkout_created(response)
 

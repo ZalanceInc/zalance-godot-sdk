@@ -8,6 +8,7 @@
 [node name="Item" type="Control"]
 custom_minimum_size = Vector2(150, 250)
 layout_mode = 3
+anchors_preset = 0
 offset_right = 200.0
 offset_bottom = 250.0
 grow_horizontal = 2

@@ -39,7 +39,7 @@ offset_top = 7.0
 offset_right = 507.03
 offset_bottom = 46.0
 scale = Vector2(0.776368, 0.613043)
-text = "bb632f31-9e6b-439f-8f9a-1d019085a391"
+text = "0575e7b7-3de1-4776-96dd-d014478900a7"
 
 [node name="ReturnUrl" type="TextEdit" parent="Project"]
 unique_name_in_owner = true
@@ -87,7 +87,6 @@ offset_left = 135.509
 offset_top = 37.0
 offset_right = 159.509
 offset_bottom = 61.0
-button_pressed = true
 
 [node name="Output" type="RichTextLabel" parent="Project"]
 unique_name_in_owner = true

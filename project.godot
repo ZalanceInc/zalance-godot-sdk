@@ -23,7 +23,6 @@ buses/default_bus_layout=""
 [autoload]
 
 Zalance="*res://addons/zalance/./zalanceapi.gd"
-ZalanceEvents="*res://addons/zalance/./events.gd"
 
 [display]
 

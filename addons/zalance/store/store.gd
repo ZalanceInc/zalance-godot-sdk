@@ -4,9 +4,9 @@ var next_page = null
 var prev_page = null
 
 func _ready():
-	ZalanceEvents.connect("item_clicked", self._on_item_clicked)
-	ZalanceEvents.connect("item_add_to_cart", self._on_item_add_to_cart)
-	ZalanceEvents.connect("order_back_press", self._on_order_back_press)
+	ZalanceSignals.item_clicked.connect(self._on_item_clicked)
+	ZalanceSignals.item_add_to_cart.connect(self._on_item_add_to_cart)
+	ZalanceSignals.order_back_press.connect(self._on_order_back_press)
 	
 	%StoreMessage.text = ""
 	var err = Zalance.get_prices(_on_prices_received, 50, 1)
