@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cxtffqyuh1mb6"
-path="res://.godot/imported/Montserrat-Italic-VariableFont_wght.ttf-e91c36ed149d50cbe6a826cb3a5cc910.fontdata"
+uid="uid://xf26q7a3tweq"
+path="res://.godot/imported/Montserrat-VariableFont_wght.ttf-43960aedbe409fa6bc103a517299ac7e.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Montserrat-Italic-VariableFont_wght.ttf"
-dest_files=["res://.godot/imported/Montserrat-Italic-VariableFont_wght.ttf-e91c36ed149d50cbe6a826cb3a5cc910.fontdata"]
+source_file="res://addons/zalance/assets/fonts/Montserrat-VariableFont_wght.ttf"
+dest_files=["res://.godot/imported/Montserrat-VariableFont_wght.ttf-43960aedbe409fa6bc103a517299ac7e.fontdata"]
 
 [params]
 

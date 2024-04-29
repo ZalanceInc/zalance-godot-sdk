@@ -1,0 +1,185 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb124177j8aly"]
+
+[ext_resource type="Script" path="res://addons/zalance/interface/interface.gd" id="1_jf3r2"]
+[ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://main_theme.tres" id="2_4vucj"]
+
+[node name="Interface" type="Control"]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.718
+offset_bottom = 34.6
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.996269, 1)
+script = ExtResource("1_jf3r2")
+
+[node name="Project" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -31.0
+
+[node name="TestConnectionButton" type="Button" parent="Project"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+offset_left = 460.584
+offset_top = 6.0
+offset_right = 600.583
+offset_bottom = 37.0
+text = "Test Connection"
+
+[node name="ProjectId" type="TextEdit" parent="Project"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+offset_left = 140.03
+offset_top = 7.0
+offset_right = 507.03
+offset_bottom = 46.0
+scale = Vector2(0.776368, 0.613043)
+text = "bb632f31-9e6b-439f-8f9a-1d019085a391"
+
+[node name="ReturnUrl" type="TextEdit" parent="Project"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+offset_left = 140.03
+offset_top = 64.0
+offset_right = 504.03
+offset_bottom = 103.0
+scale = Vector2(0.776368, 0.613043)
+text = "https://zalance.net"
+
+[node name="ProjectIdLabel" type="RichTextLabel" parent="Project"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 8.02996
+offset_top = 7.0
+offset_right = 133.03
+offset_bottom = 31.0
+tooltip_text = "The unique identifier of your project."
+text = "Project Id"
+
+[node name="ReturnUrlLabel" type="RichTextLabel" parent="Project"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 8.02996
+offset_top = 64.0
+offset_right = 133.03
+offset_bottom = 88.0
+tooltip_text = "The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method’s app or site."
+text = "Return URL"
+
+[node name="Label" type="Label" parent="Project"]
+layout_mode = 0
+offset_left = 8.02996
+offset_top = 37.0
+offset_right = 133.03
+offset_bottom = 61.0
+text = "Live Mode"
+
+[node name="LivemodeCheckBox" type="CheckBox" parent="Project"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 135.509
+offset_top = 37.0
+offset_right = 159.509
+offset_bottom = 61.0
+button_pressed = true
+
+[node name="Output" type="RichTextLabel" parent="Project"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 458.715
+offset_top = 51.0
+offset_right = 873.715
+offset_bottom = 124.0
+theme = ExtResource("2_4vucj")
+
+[node name="VSeparator" type="VSeparator" parent="Project"]
+layout_mode = 0
+offset_left = 430.008
+offset_top = 7.0
+offset_right = 453.008
+offset_bottom = 90.0
+
+[node name="TabContainer" type="TabContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Item" type="Control" parent="TabContainer"]
+layout_mode = 2
+
+[node name="ProjectId" type="TextEdit" parent="TabContainer/Item"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 140.03
+offset_top = 7.0
+offset_right = 507.03
+offset_bottom = 46.0
+scale = Vector2(0.776368, 0.613043)
+text = "bb632f31-9e6b-439f-8f9a-1d019085a391"
+
+[node name="ReturnUrl" type="TextEdit" parent="TabContainer/Item"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 140.03
+offset_top = 64.0
+offset_right = 504.03
+offset_bottom = 103.0
+scale = Vector2(0.776368, 0.613043)
+text = "https://zalance.net"
+
+[node name="ProjectIdLabel" type="RichTextLabel" parent="TabContainer/Item"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 8.02996
+offset_top = 7.0
+offset_right = 133.03
+offset_bottom = 31.0
+tooltip_text = "The unique identifier of your project."
+text = "Project Id"
+
+[node name="ReturnUrlLabel" type="RichTextLabel" parent="TabContainer/Item"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 8.02996
+offset_top = 64.0
+offset_right = 133.03
+offset_bottom = 88.0
+tooltip_text = "The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method’s app or site."
+text = "Return URL"
+
+[node name="Label" type="Label" parent="TabContainer/Item"]
+layout_mode = 0
+offset_left = 8.02996
+offset_top = 37.0
+offset_right = 133.03
+offset_bottom = 61.0
+text = "Live Mode"
+
+[node name="LivemodeCheckBox" type="CheckBox" parent="TabContainer/Item"]
+layout_mode = 0
+offset_left = 135.509
+offset_top = 37.0
+offset_right = 159.509
+offset_bottom = 61.0
+
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Item"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 101.0
+offset_right = 429.0
+offset_bottom = 141.0
+
+[connection signal="pressed" from="Project/TestConnectionButton" to="." method="_on_button_pressed"]
+[connection signal="text_changed" from="Project/ProjectId" to="." method="_on_project_id_text_changed"]
+[connection signal="text_changed" from="Project/ReturnUrl" to="." method="_on_return_url_text_changed"]
+[connection signal="pressed" from="Project/LivemodeCheckBox" to="." method="_on_livemode_check_box_pressed"]
+[connection signal="text_changed" from="TabContainer/Item/ProjectId" to="." method="_on_project_id_text_changed"]
+[connection signal="text_changed" from="TabContainer/Item/ReturnUrl" to="." method="_on_return_url_text_changed"]
+[connection signal="pressed" from="TabContainer/Item/LivemodeCheckBox" to="." method="_on_livemode_check_box_pressed"]

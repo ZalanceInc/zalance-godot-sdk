@@ -1,4 +1,4 @@
-class_name Item
+class_name ZalanceItem
 extends Control
 
 var _item_data = null
@@ -9,15 +9,18 @@ var _image_url = null
 	#pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+#func _process(delta):
+	#pass
 
 func set_data(item_data):
 	_item_data = item_data
 	%ItemTitle.text = item_data.name
 	set_image(item_data.image.url)
 	%ItemButton.text = item_data.display_amount
-
+	
+func update_size(x, y):
+	set_size(x, y)
+	
 func set_image(url: String):
 	_image_url = url
 	if _image_url != null and _image_url.length() > 0:
@@ -36,5 +39,5 @@ func _on_image_request_complete(response):
 	%ItemImage.texture = texture
 
 func _on_item_button_pressed():
-	Events.emit_signal("item_clicked", _item_data)
+	ZalanceEvents.emit_signal("item_clicked", _item_data)
 	pass # Replace with function body.

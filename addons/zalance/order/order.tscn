@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://che5wa3etilof"]
+[gd_scene load_steps=3 format=3 uid="uid://che5wa3etilof"]
 
-[ext_resource type="Script" path="res://order/order.gd" id="1_lmkxn"]
-[ext_resource type="Texture2D" uid="uid://dwi8ivn4f36yw" path="res://assets/images/ax.png" id="2_lvduh"]
+[ext_resource type="Script" path="res://addons/zalance/order/order.gd" id="1_lmkxn"]
 [ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://main_theme.tres" id="3_fexv2"]
 
 [node name="Order" type="Control"]
@@ -62,7 +61,6 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-texture = ExtResource("2_lvduh")
 expand_mode = 1
 stretch_mode = 3
 

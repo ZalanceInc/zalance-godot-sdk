@@ -1,4 +1,3 @@
-class_name ZalanceAPI
 extends Node2D
 
 const API_PUBLIC_DOMAIN = "https://api.zalance.net/api:Kp9D5gmw"
@@ -22,6 +21,11 @@ const API_CREATE_CHECKOUT_MSG = "Error creating checkout."
 const API_CHECKOUT_STATUS_MSG = "Error getting checkout status."
 const API_IMAGE_MSG = "Error retrieving image"
 
+const ZAL_MSGS = {
+	"not_found": "The resource was not found.",
+	"account_not_found": "Account not found. Make sure you have completed the account onboarding process in your account settings."
+}
+
 class ZalanceResponse:
 	var message: String = ""
 	var error: bool = false
@@ -41,12 +45,20 @@ func load_data() -> void:
 	project_id = data.project_id
 	return_url = data.return_url
 	livemode = data.livemode
-
-func get_prices(count: int, page: int, callback: Callable):	
+	print(livemode)
+	
+func get_prices(callback: Callable, count: int = 50, page: int = 1, locale: String = "en-US"):	
+	var body = JSON.stringify({
+		"count": count,
+		"page": page,
+		"livemode": livemode,
+		"locale": locale
+	})
+	
 	var url = API_PRICES_GET.format({"project_uuid": project_id})
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
-	var err := http_request.request(url, [], HTTPClient.METHOD_POST)
+	var err := http_request.request(url, [], HTTPClient.METHOD_POST, body)
 	if err:
 		remove_child(http_request)
 		return err
@@ -70,7 +82,7 @@ func _on_prices_completed(result, response_code, headers, body, callback: Callab
 		var msg = "Could not retrieve prices. " + json.message
 		push_error("Zalance: " + msg)
 		response.error = true
-		response.message = msg
+		response.message = get_translated_msg(json.message)
 		callback.call(response)
 	else:
 		response.data = {
@@ -124,7 +136,7 @@ func _on_create_checkout_session_completed(result, response_code, headers, body,
 		var msg = API_CREATE_CHECKOUT_MSG + " " + json.message
 		push_error(API_CREATE_CHECKOUT_MSG)
 		response.error = true
-		response.message = msg
+		response.message = get_translated_msg(json.message)
 		callback.call(response)
 	else:
 		_session_id = json.id
@@ -175,7 +187,7 @@ func _on_get_session_status_completed(result, response_code, headers, body, call
 		var msg = API_CREATE_CHECKOUT_MSG + " " + json.message
 		push_error(API_CREATE_CHECKOUT_MSG)
 		response.error = true
-		response.message = msg
+		response.message = get_translated_msg(json.message)
 		callback.call(response)
 	else:
 		response.data = json
@@ -215,7 +227,7 @@ func _on_image_request_complete(result, response_code, headers, body, callback, 
 		var msg = API_CREATE_CHECKOUT_MSG + " " + json.message
 		push_error(API_CREATE_CHECKOUT_MSG)
 		response.error = true
-		response.message = msg
+		response.message = get_translated_msg(json.message)
 		callback.call(response)
 	else:
 		var image = Image.new()
@@ -238,4 +250,8 @@ func _on_image_request_complete(result, response_code, headers, body, callback, 
 func is_header_png(value):
 	return value.begins_with("Content-Type") and value.ends_with("image/png")
 
-
+func get_translated_msg(key) -> String:
+	var value = ZAL_MSGS.get(key)
+	if value != null:
+		return value
+	return key

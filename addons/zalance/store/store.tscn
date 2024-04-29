@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://cxaa046x45suv"]
 
-[ext_resource type="Script" path="res://store/store.gd" id="1_1riqn"]
+[ext_resource type="Script" path="res://addons/zalance/store/store.gd" id="1_1riqn"]
 [ext_resource type="Texture2D" uid="uid://bwl8wk8i1m5vw" path="res://assets/images/shop.jpg" id="2_nxa0q"]
 [ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://main_theme.tres" id="3_tujj8"]
 [ext_resource type="FontFile" uid="uid://b14j3l8ja3be4" path="res://assets/fonts/static/Montserrat-Regular.ttf" id="4_1v62m"]
 [ext_resource type="FontFile" uid="uid://bxkfrjtf8sorc" path="res://assets/fonts/static/Montserrat-Bold.ttf" id="5_xwvyb"]
 [ext_resource type="FontFile" uid="uid://e536hs4rqock" path="res://assets/fonts/static/Montserrat-Italic.ttf" id="6_dpx28"]
 [ext_resource type="FontFile" uid="uid://dfphkwy8mi1y1" path="res://assets/fonts/static/Montserrat-BoldItalic.ttf" id="7_1so4y"]
-[ext_resource type="Script" path="res://store/item_grid.gd" id="8_4qdd0"]
-[ext_resource type="PackedScene" uid="uid://che5wa3etilof" path="res://order/order.tscn" id="9_2l1rh"]
+[ext_resource type="PackedScene" uid="uid://che5wa3etilof" path="res://addons/zalance/order/order.tscn" id="9_2l1rh"]
+[ext_resource type="Script" path="res://addons/zalance/item/itemgrid.gd" id="9_2vx7x"]
 
 [node name="Main" type="Node"]
 
@@ -94,13 +94,48 @@ theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 0
 
-[node name="ItemGrid" type="GridContainer" parent="Control/VBoxContainer/GridScroll/MarginContainer"]
+[node name="ZalanceItemGrid" type="GridContainer" parent="Control/VBoxContainer/GridScroll/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-columns = 4
-script = ExtResource("8_4qdd0")
+columns = 6
+script = ExtResource("9_2vx7x")
 
-[node name="Panel" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ItemGrid"]
+[node name="Panel" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="Panel3" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="Panel4" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="Panel5" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="Panel6" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="Panel7" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="Panel8" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
 visible = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
@@ -108,7 +143,7 @@ layout_mode = 2
 [node name="Footer" type="HBoxContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
 
-[node name="Order" parent="." instance=ExtResource("9_2l1rh")]
+[node name="ZalanceOrder" parent="." instance=ExtResource("9_2l1rh")]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(0, 0)
