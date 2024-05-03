@@ -7,6 +7,7 @@ static func make_signal(p_obj, p_signal_name: StringName) -> Signal:
 	p_obj.add_user_signal(p_signal_name)
 	return Signal(p_obj, p_signal_name)
 
+static var store_item_clicked: Signal = make_signal(ZalanceSignals, "store_item_clicked")
 static var item_clicked: Signal = make_signal(ZalanceSignals, "item_clicked")
 static var item_buy_now: Signal = make_signal(ZalanceSignals, "item_buy_now")
 static var item_add_to_cart: Signal = make_signal(ZalanceSignals, "item_add_to_cart")

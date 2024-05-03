@@ -64,13 +64,15 @@ func save() -> void:
 	zalance.load_data()
 
 func load_data() -> void:
-	var data:ZalanceData = load(ZalanceData.save_path)
-	project_id = data.project_id
-	%ProjectId.text = project_id
-	return_url = data.return_url
-	%ReturnUrl.text = return_url
-	livemode = data.livemode
-	%LivemodeCheckBox.button_pressed = livemode
+	var fileExists = FileAccess.file_exists(ZalanceData.save_path)
+	if fileExists:
+		var data:ZalanceData = load(ZalanceData.save_path)
+		project_id = data.project_id
+		%ProjectId.text = project_id
+		return_url = data.return_url
+		%ReturnUrl.text = return_url
+		livemode = data.livemode
+		%LivemodeCheckBox.button_pressed = livemode
 	#%LivemodeCheckBox.set_pressed(true)
 	#print("button_pressed: " + str(%LivemodeCheckBox.button_pressed))
 	#print("is_pressed: " + str(%LivemodeCheckBox.is_pressed()))

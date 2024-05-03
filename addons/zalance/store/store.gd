@@ -28,12 +28,12 @@ func _on_prices_received(response):
 		prev_page = response.data.prev_page
 
 func _on_item_clicked(item):
-	%ZalanceOrder.visible = true
+	#%ZalanceOrder.visible = true
 	%GridScroll.visible = false
-	%ZalanceOrder.set_data(item)
+	#%ZalanceOrder.set_data(item)
 
 func _on_order_back_press():
-	%ZalanceOrder.visible = false
+	#%ZalanceOrder.visible = false
 	%GridScroll.visible = true
 
 func _on_item_add_to_cart(item):

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bxkfrjtf8sorc"
-path="res://.godot/imported/Montserrat-Bold.ttf-9d7aeb79031cc1fc30ef9d423e767499.fontdata"
+uid="uid://chir1m11wdsum"
+path="res://.godot/imported/Montserrat-BlackItalic.ttf-e2700b8951b2807a1e6cd30807b80f00.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/static/Montserrat-Bold.ttf"
-dest_files=["res://.godot/imported/Montserrat-Bold.ttf-9d7aeb79031cc1fc30ef9d423e767499.fontdata"]
+source_file="res://addons/zalance/assets/fonts/static/Montserrat-BlackItalic.ttf"
+dest_files=["res://.godot/imported/Montserrat-BlackItalic.ttf-e2700b8951b2807a1e6cd30807b80f00.fontdata"]
 
 [params]
 

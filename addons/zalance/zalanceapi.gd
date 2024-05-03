@@ -41,11 +41,16 @@ func _ready():
 	load_data()
 
 func load_data() -> void:
-	var data:ZalanceData = load(ZalanceData.save_path)
-	project_id = data.project_id
-	return_url = data.return_url
-	livemode = data.livemode
-	
+	var fileExists = FileAccess.file_exists(ZalanceData.save_path)
+	if fileExists:
+		var data:ZalanceData = load(ZalanceData.save_path)
+		project_id = data.project_id
+		return_url = data.return_url
+		livemode = data.livemode
+
+func set_account_id(id: String):
+	account_id = id
+
 func get_prices(callback: Callable, count: int = 50, page: int = 1, locale: String = "en-US"):	
 	var body = JSON.stringify({
 		"count": count,

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bhw85att0c57b"]
 
 [ext_resource type="Script" path="res://addons/zalance/item/item.gd" id="1_4qg72"]
-[ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://main_theme.tres" id="3_mpgcy"]
+[ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://addons/zalance/zalance_theme.tres" id="2_btiyw"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qcmq6"]
 
@@ -81,7 +81,7 @@ theme_override_constants/margin_right = 20
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_qcmq6")
 layout_mode = 2
-theme = ExtResource("3_mpgcy")
+theme = ExtResource("2_btiyw")
 theme_override_font_sizes/font_size = 25
 text = "$1.99"
 

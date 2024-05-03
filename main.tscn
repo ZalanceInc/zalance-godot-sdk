@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dluuu7u3wpv8s"]
+
+[ext_resource type="Texture2D" uid="uid://bwl8wk8i1m5vw" path="res://assets/images/shop.jpg" id="1_qb3j3"]
+[ext_resource type="PackedScene" uid="uid://cxaa046x45suv" path="res://addons/zalance/store/store.tscn" id="1_sg0j3"]
+[ext_resource type="PackedScene" uid="uid://che5wa3etilof" path="res://addons/zalance/order/order.tscn" id="2_ul0kj"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_qb3j3")
+
+[node name="StoreScene" parent="." instance=ExtResource("1_sg0j3")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.125
+offset_right = -2.0
+
+[node name="Order" parent="." instance=ExtResource("2_ul0kj")]
+visible = false
+layout_mode = 1

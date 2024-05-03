@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://ckeccbojcwlm7"
-path="res://.godot/imported/Montserrat-Medium.ttf-4e032d7f016c1fa190ba80cc4bac637c.fontdata"
+uid="uid://2eghx0wt47qc"
+path="res://.godot/imported/Montserrat-ExtraLight.ttf-f5cc7138fe4bacbb8b0c090c389b5189.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/static/Montserrat-Medium.ttf"
-dest_files=["res://.godot/imported/Montserrat-Medium.ttf-4e032d7f016c1fa190ba80cc4bac637c.fontdata"]
+source_file="res://addons/zalance/assets/fonts/static/Montserrat-ExtraLight.ttf"
+dest_files=["res://.godot/imported/Montserrat-ExtraLight.ttf-f5cc7138fe4bacbb8b0c090c389b5189.fontdata"]
 
 [params]
 

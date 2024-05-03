@@ -13,7 +13,7 @@ config_version=5
 config/name="WebSocket Minimal Demo"
 config/description="This is a minimal sample of connecting two peers to each other using WebSockets."
 config/tags=PackedStringArray("demo", "network", "official")
-run/main_scene="res://addons/zalance/store/store.tscn"
+run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2")
 
 [audio]

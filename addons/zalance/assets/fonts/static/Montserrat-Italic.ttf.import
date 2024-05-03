@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://e536hs4rqock"
-path="res://.godot/imported/Montserrat-Italic.ttf-b3cedb9aadfe95e2737daf5ac14d79ff.fontdata"
+path="res://.godot/imported/Montserrat-Italic.ttf-ea3e0e08aa1062350e93819b828abf34.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/static/Montserrat-Italic.ttf"
-dest_files=["res://.godot/imported/Montserrat-Italic.ttf-b3cedb9aadfe95e2737daf5ac14d79ff.fontdata"]
+source_file="res://addons/zalance/assets/fonts/static/Montserrat-Italic.ttf"
+dest_files=["res://.godot/imported/Montserrat-Italic.ttf-ea3e0e08aa1062350e93819b828abf34.fontdata"]
 
 [params]
 

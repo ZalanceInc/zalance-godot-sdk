@@ -1,21 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxaa046x45suv"]
+[gd_scene load_steps=4 format=3 uid="uid://cxaa046x45suv"]
 
 [ext_resource type="Script" path="res://addons/zalance/store/store.gd" id="1_1riqn"]
-[ext_resource type="Texture2D" uid="uid://bwl8wk8i1m5vw" path="res://assets/images/shop.jpg" id="2_nxa0q"]
-[ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://main_theme.tres" id="3_tujj8"]
-[ext_resource type="FontFile" uid="uid://b14j3l8ja3be4" path="res://assets/fonts/static/Montserrat-Regular.ttf" id="4_1v62m"]
-[ext_resource type="FontFile" uid="uid://bxkfrjtf8sorc" path="res://assets/fonts/static/Montserrat-Bold.ttf" id="5_xwvyb"]
-[ext_resource type="FontFile" uid="uid://e536hs4rqock" path="res://assets/fonts/static/Montserrat-Italic.ttf" id="6_dpx28"]
-[ext_resource type="FontFile" uid="uid://dfphkwy8mi1y1" path="res://assets/fonts/static/Montserrat-BoldItalic.ttf" id="7_1so4y"]
-[ext_resource type="PackedScene" uid="uid://che5wa3etilof" path="res://addons/zalance/order/order.tscn" id="9_2l1rh"]
+[ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://addons/zalance/zalance_theme.tres" id="3_tujj8"]
 [ext_resource type="Script" path="res://addons/zalance/item/itemgrid.gd" id="9_2vx7x"]
 
-[node name="Main" type="Node"]
-
-[node name="Store" type="Node" parent="."]
-script = ExtResource("1_1riqn")
-
-[node name="Control" type="Control" parent="."]
+[node name="Main" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,17 +12,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BgTexture" type="TextureRect" parent="Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_nxa0q")
-expand_mode = 1
+[node name="Store" type="Node" parent="."]
+script = ExtResource("1_1riqn")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,114 +23,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Header" type="HBoxContainer" parent="Control/VBoxContainer"]
+[node name="GridScroll" type="ScrollContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/GridScroll"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 0
+
+[node name="ZalanceItemGrid" type="GridContainer" parent="VBoxContainer/GridScroll/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 6
+script = ExtResource("9_2vx7x")
+
+[node name="Panel" type="Panel" parent="VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/Header"]
+[node name="Header" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_bottom = 50
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/VBoxContainer/Header/MarginContainer"]
-clip_contents = false
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme = ExtResource("3_tujj8")
-theme_override_fonts/normal_font = ExtResource("4_1v62m")
-theme_override_fonts/bold_font = ExtResource("5_xwvyb")
-theme_override_fonts/italics_font = ExtResource("6_dpx28")
-theme_override_fonts/bold_italics_font = ExtResource("7_1so4y")
-bbcode_enabled = true
-text = "[font_size=40][b]Store[/b][/font_size]"
-fit_content = true
-
-[node name="MessageMargin" type="MarginContainer" parent="Control/VBoxContainer/Header"]
+[node name="MessageMargin" type="MarginContainer" parent="VBoxContainer/Header"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 0
 
-[node name="StoreMessage" type="RichTextLabel" parent="Control/VBoxContainer/Header/MessageMargin"]
+[node name="StoreMessage" type="RichTextLabel" parent="VBoxContainer/Header/MessageMargin"]
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
 theme = ExtResource("3_tujj8")
 theme_override_colors/default_color = Color(1, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("4_1v62m")
-theme_override_fonts/bold_font = ExtResource("5_xwvyb")
-theme_override_fonts/italics_font = ExtResource("6_dpx28")
-theme_override_fonts/bold_italics_font = ExtResource("7_1so4y")
 theme_override_font_sizes/normal_font_size = 20
 text = "this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. this is an error message. "
-
-[node name="GridScroll" type="ScrollContainer" parent="Control/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/GridScroll"]
-layout_mode = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 0
-
-[node name="ZalanceItemGrid" type="GridContainer" parent="Control/VBoxContainer/GridScroll/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-columns = 6
-script = ExtResource("9_2vx7x")
-
-[node name="Panel" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
-visible = false
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-
-[node name="Panel2" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
-visible = false
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-
-[node name="Panel3" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
-visible = false
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-
-[node name="Panel4" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
-visible = false
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-
-[node name="Panel5" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
-visible = false
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-
-[node name="Panel6" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
-visible = false
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-
-[node name="Panel7" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
-visible = false
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-
-[node name="Panel8" type="Panel" parent="Control/VBoxContainer/GridScroll/MarginContainer/ZalanceItemGrid"]
-visible = false
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-
-[node name="Footer" type="HBoxContainer" parent="Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="ZalanceOrder" parent="." instance=ExtResource("9_2l1rh")]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(0, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -930.0
-offset_bottom = -320.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cb124177j8aly"]
 
 [ext_resource type="Script" path="res://addons/zalance/interface/interface.gd" id="1_jf3r2"]
-[ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://main_theme.tres" id="2_4vucj"]
+[ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://addons/zalance/zalance_theme.tres" id="2_ea3pe"]
 
 [node name="Interface" type="Control"]
 layout_mode = 3
@@ -24,19 +24,19 @@ offset_bottom = -31.0
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-offset_left = 460.584
+offset_left = 432.614
 offset_top = 6.0
-offset_right = 600.583
-offset_bottom = 37.0
+offset_right = 580.614
+offset_bottom = 45.0
 text = "Test Connection"
 
 [node name="ProjectId" type="TextEdit" parent="Project"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-offset_left = 140.03
+offset_left = 117.944
 offset_top = 7.0
-offset_right = 507.03
+offset_right = 484.944
 offset_bottom = 46.0
 scale = Vector2(0.776368, 0.613043)
 text = "0575e7b7-3de1-4776-96dd-d014478900a7"
@@ -45,64 +45,61 @@ text = "0575e7b7-3de1-4776-96dd-d014478900a7"
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-offset_left = 140.03
-offset_top = 64.0
-offset_right = 504.03
-offset_bottom = 103.0
+offset_left = 117.944
+offset_top = 67.0
+offset_right = 481.944
+offset_bottom = 106.0
 scale = Vector2(0.776368, 0.613043)
 text = "https://zalance.net"
 
-[node name="ProjectIdLabel" type="RichTextLabel" parent="Project"]
-layout_mode = 1
-anchors_preset = -1
-offset_left = 8.02996
-offset_top = 7.0
-offset_right = 133.03
-offset_bottom = 31.0
-tooltip_text = "The unique identifier of your project."
-text = "Project Id"
+[node name="ProjectIdLabel2" type="Label" parent="Project"]
+offset_left = 7.0
+offset_top = 6.0
+offset_right = 111.0
+offset_bottom = 30.0
+text = "Project Id:"
+horizontal_alignment = 2
 
-[node name="ReturnUrlLabel" type="RichTextLabel" parent="Project"]
-layout_mode = 1
-anchors_preset = -1
-offset_left = 8.02996
-offset_top = 64.0
-offset_right = 133.03
-offset_bottom = 88.0
-tooltip_text = "The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method’s app or site."
-text = "Return URL"
+[node name="ReturnUrlLabel2" type="Label" parent="Project"]
+offset_left = 7.0
+offset_top = 67.0
+offset_right = 112.0
+offset_bottom = 91.0
+text = "Return URL:"
+horizontal_alignment = 2
 
-[node name="Label" type="Label" parent="Project"]
+[node name="LivemodeLabel" type="Label" parent="Project"]
 layout_mode = 0
-offset_left = 8.02996
-offset_top = 37.0
-offset_right = 133.03
-offset_bottom = 61.0
-text = "Live Mode"
+offset_left = 8.0
+offset_top = 36.0
+offset_right = 112.0
+offset_bottom = 60.0
+text = "Live Mode:"
+horizontal_alignment = 2
 
 [node name="LivemodeCheckBox" type="CheckBox" parent="Project"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 135.509
+offset_left = 113.423
 offset_top = 37.0
-offset_right = 159.509
+offset_right = 137.423
 offset_bottom = 61.0
 
 [node name="Output" type="RichTextLabel" parent="Project"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 458.715
+offset_left = 436.0
 offset_top = 51.0
-offset_right = 873.715
-offset_bottom = 124.0
-theme = ExtResource("2_4vucj")
+offset_right = 892.0
+offset_bottom = 153.0
+theme = ExtResource("2_ea3pe")
 
 [node name="VSeparator" type="VSeparator" parent="Project"]
 layout_mode = 0
-offset_left = 430.008
+offset_left = 407.0
 offset_top = 7.0
-offset_right = 453.008
-offset_bottom = 90.0
+offset_right = 430.0
+offset_bottom = 163.0
 
 [node name="TabContainer" type="TabContainer" parent="."]
 visible = false

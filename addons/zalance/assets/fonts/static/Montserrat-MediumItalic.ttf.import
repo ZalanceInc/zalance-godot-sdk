@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://b14j3l8ja3be4"
-path="res://.godot/imported/Montserrat-Regular.ttf-c010c73277d85c184e7cae3c3acf2ae0.fontdata"
+uid="uid://c0culoq33ads1"
+path="res://.godot/imported/Montserrat-MediumItalic.ttf-1d3912a535384d23d1d03452f3915b58.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/static/Montserrat-Regular.ttf"
-dest_files=["res://.godot/imported/Montserrat-Regular.ttf-c010c73277d85c184e7cae3c3acf2ae0.fontdata"]
+source_file="res://addons/zalance/assets/fonts/static/Montserrat-MediumItalic.ttf"
+dest_files=["res://.godot/imported/Montserrat-MediumItalic.ttf-1d3912a535384d23d1d03452f3915b58.fontdata"]
 
 [params]
 

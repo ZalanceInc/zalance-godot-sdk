@@ -1,15 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://che5wa3etilof"]
 
 [ext_resource type="Script" path="res://addons/zalance/order/order.gd" id="1_lmkxn"]
-[ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://main_theme.tres" id="3_fexv2"]
+[ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://addons/zalance/zalance_theme.tres" id="3_fexv2"]
 
 [node name="Order" type="Control"]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
-anchor_right = 0.273
-anchor_bottom = 0.556
-offset_right = 0.559998
-offset_bottom = -0.320038
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lmkxn")
@@ -17,21 +16,22 @@ script = ExtResource("1_lmkxn")
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 3.657
-anchor_bottom = 1.8
-offset_right = 0.0499268
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.41
-anchor_right = 3.277
-anchor_bottom = 1.41
-offset_left = -73.0
-offset_right = -69.9501
+anchor_left = 0.078
+anchor_top = 0.185
+anchor_right = 0.922
+anchor_bottom = 0.801
+offset_left = 0.159996
+offset_top = -0.199997
+offset_right = -0.160034
+offset_bottom = 0.279968
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -88,7 +88,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="ItemDesc" type="RichTextLabel" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/PanelVBox/DescMargin"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 theme = ExtResource("3_fexv2")
 theme_override_font_sizes/normal_font_size = 18

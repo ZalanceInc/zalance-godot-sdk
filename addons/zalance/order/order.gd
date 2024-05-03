@@ -17,7 +17,7 @@ func _ready():
 	
 	ZalanceSignals.checkout_complete.connect(self._on_checkout_complete)
 	ZalanceSignals.item_buy_now.connect(self._on_item_buy_now)
-	#ZalanceEvents.connect("item_clicked", self._on_item_clicked)
+	ZalanceSignals.item_clicked.connect(self._on_item_clicked)
 	#ZalanceEvents.connect("item_add_to_cart", self._on_item_add_to_cart)
 	#ZalanceEvents.connect("order_back_press", self._on_order_back_press)
 	
@@ -51,7 +51,11 @@ func _on_image_request_complete(response):
 
 	# Display the image in a TextureRect node.
 	%ItemImage.texture = texture
-	
+
+func _on_item_clicked(item_data):
+	visible = true
+	set_data(item_data)
+
 func is_header_png(value):
 	return value.begins_with("Content-Type") and value.ends_with("image/png")
 
@@ -63,6 +67,7 @@ func _on_buy_now_btn_pressed():
 	_show_purchasing_button()
 
 func _on_back_button_pressed():
+	visible = false
 	ZalanceSignals.order_back_press.emit()
 
 func _show_purchasing_button():
@@ -112,7 +117,7 @@ func _on_checkout_status(response):
 	elif response.data.status == "":
 		_on_checkout_created(response)
 
-func _show_error(msg):
+func _show_error(msg):		
 	if msg == null:
 		%ErrorMsg.text = "";
 		%ErrorMsg.visible = false;
