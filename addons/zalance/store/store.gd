@@ -7,12 +7,12 @@ func _ready():
 	ZalanceSignals.item_clicked.connect(self._on_item_clicked)
 	ZalanceSignals.item_add_to_cart.connect(self._on_item_add_to_cart)
 	ZalanceSignals.order_back_press.connect(self._on_order_back_press)
-	
 	%StoreMessage.text = ""
+	
 	var err = Zalance.get_prices(_on_prices_received, 50, 1)
 	if err:
 		%StoreMessage.text = "There was an error while retrieving store items. Error: " + String(err)
-	
+
 func _process(_delta):
 	pass
 

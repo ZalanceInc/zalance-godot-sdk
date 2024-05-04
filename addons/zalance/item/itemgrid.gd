@@ -5,14 +5,22 @@ var ZalanceItemClass = preload("./item.tscn")
 var items: PackedByteArray = []
 var item_size_x = 200
 var item_size_y = 250
+var _columns = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	load_data()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 	#pass
+
+func load_data() -> void:
+	var fileExists = FileAccess.file_exists(ZalanceData.save_path)
+	if fileExists:
+		var data:ZalanceData = load(ZalanceData.save_path)
+		self.columns = data.columns
+		set_array_item_size(data.item_width, data.item_height)
 
 func _remove_children():
 	for n in get_children():

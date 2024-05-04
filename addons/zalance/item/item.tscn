@@ -6,7 +6,6 @@
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qcmq6"]
 
 [node name="Item" type="Control"]
-custom_minimum_size = Vector2(150, 250)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 200.0
@@ -24,60 +23,60 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.995
-anchor_bottom = 0.572
-offset_right = -0.00502014
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 
-[node name="ItemImage" type="TextureRect" parent="Panel/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ItemImage" type="TextureRect" parent="VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="PanelMargin" type="MarginContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.571
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 0.149979
-grow_horizontal = 2
-grow_vertical = 2
+[node name="PanelMargin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 2
 
-[node name="PanelVBox" type="VBoxContainer" parent="Panel/PanelMargin"]
+[node name="PanelVBox" type="VBoxContainer" parent="VBoxContainer/PanelMargin"]
 layout_mode = 2
 
-[node name="TitleMargin" type="MarginContainer" parent="Panel/PanelMargin/PanelVBox"]
+[node name="TitleMargin" type="MarginContainer" parent="VBoxContainer/PanelMargin/PanelVBox"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 5
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 5
 
-[node name="ItemTitle" type="Label" parent="Panel/PanelMargin/PanelVBox/TitleMargin"]
+[node name="ItemTitle" type="Label" parent="VBoxContainer/PanelMargin/PanelVBox/TitleMargin"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Item Name"
+text = "Item Name Item Name Item Name "
 horizontal_alignment = 1
+autowrap_mode = 2
 
-[node name="PriceMarginContainer" type="MarginContainer" parent="Panel/PanelMargin/PanelVBox"]
+[node name="PriceMarginContainer" type="MarginContainer" parent="VBoxContainer/PanelMargin/PanelVBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
 
-[node name="ItemButton" type="Button" parent="Panel/PanelMargin/PanelVBox/PriceMarginContainer"]
+[node name="ItemButton" type="Button" parent="VBoxContainer/PanelMargin/PanelVBox/PriceMarginContainer"]
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_qcmq6")
 layout_mode = 2
@@ -85,4 +84,4 @@ theme = ExtResource("2_btiyw")
 theme_override_font_sizes/font_size = 25
 text = "$1.99"
 
-[connection signal="pressed" from="Panel/PanelMargin/PanelVBox/PriceMarginContainer/ItemButton" to="." method="_on_item_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelMargin/PanelVBox/PriceMarginContainer/ItemButton" to="." method="_on_item_button_pressed"]
