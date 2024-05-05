@@ -1,30 +1,41 @@
 extends Node2D
 
+var account_id = "":
+	set = set_account_id
+	
+var locale = "en-US":
+	set = set_locale
+
 const API_PUBLIC_DOMAIN = "https://api.zalance.net/api:Kp9D5gmw"
 const API_PRICES_GET = API_PUBLIC_DOMAIN + '/price/{project_uuid}'
 const API_SESSION_CREATE = API_PUBLIC_DOMAIN + '/session'
 const API_SESSION_STATUS = API_PUBLIC_DOMAIN + '/session/status'
 var project_id = ""
 var return_url = ""
-var account_id = "1120456E26F41EFC"
 var livemode = false
 var automatic_tax = true
 var json_result
-var json
 var _session_id = null
 var _prices = []
 var _prices_next_page = null
 var _prices_prev_page = null
+var http_request_prices: HTTPRequest = null
 const API_ZALANCE_HELP_MSG = " Check your project Id in the Zalance panel is correct. If you continue to have problems, contact supporet@zalance.net"
 const API_PRICE_FAIL_MSG = "Error retrieving prices."
 const API_CREATE_CHECKOUT_MSG = "Error creating checkout."
 const API_CHECKOUT_STATUS_MSG = "Error getting checkout status."
-const API_IMAGE_MSG = "Error retrieving image"
+
 
 const ZAL_MSGS = {
 	"not_found": "The resource was not found.",
-	"account_not_found": "Account not found. Make sure you have completed the account onboarding process in your account settings."
+	"account_not_found": "Account not found. Make sure you have completed the account onboarding process in your account settings.",
+	"image_not_found": "Error retrieving image",
+	"image_format_unknown": "Unknown image format. Image must be either PNG or JPG format",
+	"image_error": "Error retrieving image",
+	"invalid_project_id": "Invalid project Id. Check your project Id in the Zalance panel is correct.",
+	"invalid_account_id": "Invalid account Id.",
 }
+
 
 class ZalanceResponse:
 	var message: String = ""
@@ -37,8 +48,10 @@ class ZalanceResponse:
 		result = _result
 		response_code = _response_code
 
+
 func _ready():
 	load_data()
+
 
 func load_data() -> void:
 	var fileExists = FileAccess.file_exists(ZalanceData.save_path)
@@ -48,10 +61,26 @@ func load_data() -> void:
 		return_url = data.return_url
 		livemode = data.livemode
 
-func set_account_id(id: String):
+
+func set_account_id(id: String) -> void:
 	account_id = id
 
-func get_prices(callback: Callable, count: int = 50, page: int = 1, locale: String = "en-US"):	
+
+func set_locale(_locale: String) -> void:
+	locale = _locale
+
+
+func get_prices(callback: Callable, count: int = 50, page: int = 1) -> Error:
+	var err := _check_project_id()
+	if err:
+		return err
+	
+	if http_request_prices != null:
+		http_request_prices.cancel_request()
+		remove_child(http_request_prices)
+		http_request_prices.queue_free()
+		http_request_prices = null
+	
 	var body = JSON.stringify({
 		"count": count,
 		"page": page,
@@ -60,18 +89,24 @@ func get_prices(callback: Callable, count: int = 50, page: int = 1, locale: Stri
 	})
 	
 	var url = API_PRICES_GET.format({"project_uuid": project_id})
-	var http_request = HTTPRequest.new()
-	add_child(http_request)
-	var err := http_request.request(url, [], HTTPClient.METHOD_POST, body)
+	http_request_prices = HTTPRequest.new()
+	add_child(http_request_prices)
+	err = http_request_prices.request(url, [], HTTPClient.METHOD_POST, body)
 	if err:
-		remove_child(http_request)
+		remove_child(http_request_prices)
+		http_request_prices.queue_free()
+		http_request_prices = null
 		return err
 	
-	http_request.request_completed.connect(_on_prices_completed.bind(callback, http_request))
+	http_request_prices.request_completed.connect(_on_prices_completed.bind(callback, http_request_prices))
 	return err
 
-func _on_prices_completed(result, response_code, headers, body, callback: Callable, http_request):
-	remove_child(http_request)
+
+func _on_prices_completed(result, response_code, headers, body, callback: Callable, http_request) -> void:
+	remove_child(http_request_prices)
+	http_request_prices.queue_free()
+	http_request_prices = null
+	
 	var response = ZalanceResponse.new(result, response_code)
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_error(API_PRICE_FAIL_MSG + API_ZALANCE_HELP_MSG)
@@ -80,7 +115,7 @@ func _on_prices_completed(result, response_code, headers, body, callback: Callab
 		callback.call(response)
 		return
 	
-	json = JSON.parse_string(body.get_string_from_utf8());
+	var json = JSON.parse_string(body.get_string_from_utf8());
 	
 	if response_code != HTTPClient.RESPONSE_OK:
 		var msg = "Could not retrieve prices. " + json.message
@@ -96,7 +131,16 @@ func _on_prices_completed(result, response_code, headers, body, callback: Callab
 		}
 		callback.call(response)
 
+
 func create_checkout_session(price_id: String, quantity: int, callback: Callable) -> int:
+	var err := _check_project_id()
+	if err:
+		return err
+		
+	err = _check_account_id()
+	if err:
+		return err	
+	
 	var url = API_SESSION_CREATE
 	var headers = ["Content-Type: application/json"]
 	var lineItems = [{
@@ -116,16 +160,19 @@ func create_checkout_session(price_id: String, quantity: int, callback: Callable
 	
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
-	var err := http_request.request(url, headers, HTTPClient.METHOD_POST, body)
+	err = http_request.request(url, headers, HTTPClient.METHOD_POST, body)
 	if err:
 		remove_child(http_request)
+		http_request.queue_free()
 		return err
 	
 	http_request.request_completed.connect(_on_create_checkout_session_completed.bind(callback, http_request))
 	return err
 
+
 func _on_create_checkout_session_completed(result, response_code, headers, body, callback: Callable, http_request):
 	remove_child(http_request)
+	http_request.queue_free()
 	var response = ZalanceResponse.new(result, response_code)
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_error(API_CREATE_CHECKOUT_MSG + API_ZALANCE_HELP_MSG)
@@ -134,7 +181,7 @@ func _on_create_checkout_session_completed(result, response_code, headers, body,
 		callback.call(response)
 		return
 	
-	json = JSON.parse_string(body.get_string_from_utf8());
+	var json = JSON.parse_string(body.get_string_from_utf8());
 	
 	if response_code != HTTPClient.RESPONSE_OK:
 		var msg = API_CREATE_CHECKOUT_MSG + " " + json.message
@@ -150,11 +197,17 @@ func _on_create_checkout_session_completed(result, response_code, headers, body,
 		}
 		callback.call(response)
 
+
 func _create_checkout_browser(url):
 	print(url)
 	OS.shell_open(url)
 
+
 func get_checkout_session_status(callback: Callable) -> int:
+	var err := _check_project_id()
+	if err:
+		return err
+	
 	var body = JSON.stringify({
 		"project_uuid": project_id,
 		"session_id": _session_id
@@ -162,7 +215,7 @@ func get_checkout_session_status(callback: Callable) -> int:
 	
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
-	var err := http_request.request(
+	err = http_request.request(
 		API_SESSION_STATUS, 
 		["Content-Type: application/json"], 
 		HTTPClient.METHOD_POST, 
@@ -170,13 +223,16 @@ func get_checkout_session_status(callback: Callable) -> int:
 	
 	if err:
 		remove_child(http_request)
+		http_request.queue_free()
 		return err
 	
 	http_request.request_completed.connect(_on_get_session_status_completed.bind(callback, http_request))
 	return err
 
+
 func _on_get_session_status_completed(result, response_code, headers, body, callback: Callable, http_request):
 	remove_child(http_request)
+	http_request.queue_free()
 	var response = ZalanceResponse.new(result, response_code)
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_error(API_CHECKOUT_STATUS_MSG + API_ZALANCE_HELP_MSG)
@@ -185,7 +241,7 @@ func _on_get_session_status_completed(result, response_code, headers, body, call
 		callback.call(response)
 		return
 	
-	json = JSON.parse_string(body.get_string_from_utf8());
+	var json = JSON.parse_string(body.get_string_from_utf8());
 	
 	if response_code != HTTPClient.RESPONSE_OK:
 		var msg = API_CREATE_CHECKOUT_MSG + " " + json.message
@@ -197,26 +253,31 @@ func _on_get_session_status_completed(result, response_code, headers, body, call
 		response.data = json
 		callback.call(response)
 
+
 func get_image(image_url: String, callback: Callable):
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
 	var err = http_request.request(image_url)
 	if err:
-		push_error(API_IMAGE_MSG + " image: " + image_url)
+		var errMsg = get_translated_msg("image_not_found")
+		push_error(errMsg + " - " + image_url)
 		remove_child(http_request)
+		http_request.queue_free()
 		return err
 	
 	http_request.request_completed.connect(_on_image_request_complete.bind(callback, http_request) )
 	return err
 
+
 # Called when the Image request is completed.
 func _on_image_request_complete(result, response_code, headers, body, callback, http_request):
 	remove_child(http_request)
+	http_request.queue_free()
 	var response = ZalanceResponse.new(result, response_code)
 	if result != HTTPRequest.RESULT_SUCCESS:
-		push_error(API_IMAGE_MSG + API_ZALANCE_HELP_MSG)
+		var errMsg = get_translated_msg("image_not_found")
 		response.error = true
-		response.message = API_IMAGE_MSG
+		response.message = errMsg
 		callback.call(response)
 		return
 	
@@ -226,24 +287,33 @@ func _on_image_request_complete(result, response_code, headers, body, callback, 
 		if url != null and url.length() > 0:
 			get_image(url, callback)
 			return
-	
+
+
 	if response_code != HTTPClient.RESPONSE_OK:
-		var msg = API_CREATE_CHECKOUT_MSG + " " + json.message
-		push_error(API_CREATE_CHECKOUT_MSG)
+		var errMsg = get_translated_msg("image_not_found")
+		push_error(errMsg)
 		response.error = true
-		response.message = get_translated_msg(json.message)
+		response.message = errMsg
 		callback.call(response)
 	else:
-		var image = Image.new()
+		var image = null
 		var headersArray = Array(headers)
 		var error = null
 		var is_png = headersArray.any(is_header_png)
+		var is_jpeg = headersArray.any(is_header_jpeg)
 		if is_png:
+			image = Image.new()
 			error = image.load_png_from_buffer(body)
-		else:
+		elif is_jpeg:
+			image = Image.new()
 			error = image.load_jpg_from_buffer(body)
+		else:
+			var errMsg = get_translated_msg("image_format_unknown")
+			push_error(errMsg)	
+		
 		if error != OK:
-			push_error("Couldn't load the image.")
+			var errMsg = get_translated_msg("image_error")
+			push_error(errMsg)
 		
 		#var texture = ImageTexture.create_from_image(image)
 		response.data = {
@@ -251,8 +321,30 @@ func _on_image_request_complete(result, response_code, headers, body, callback, 
 		}
 		callback.call(response)
 
-func is_header_png(value):
-	return value.begins_with("Content-Type") and value.ends_with("image/png")
+
+func is_header_png(value: String):
+	return value.begins_with("Content-Type") and value.to_lower().ends_with("image/png")
+
+
+func is_header_jpeg(value: String):
+	return value.begins_with("Content-Type") and value.to_lower().ends_with("image/jpeg")
+
+
+func _check_project_id() -> Error:
+	if project_id == null or project_id.length() == 0:
+		var errMsg = get_translated_msg("invalid_project_id")
+		push_error(errMsg)
+		return ERR_INVALID_PARAMETER
+	return OK
+
+
+func _check_account_id() -> Error:
+	if account_id == null or account_id.length() == 0:
+		var errMsg = get_translated_msg("invalid_account_id")
+		push_error(errMsg)
+		return ERR_INVALID_PARAMETER
+	return OK
+
 
 func get_translated_msg(key) -> String:
 	var value = ZAL_MSGS.get(key)

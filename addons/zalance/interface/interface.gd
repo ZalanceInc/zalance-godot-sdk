@@ -11,31 +11,37 @@ var regex = RegEx.new()
 const ZalanceAPI = preload("../zalanceapi.gd")
 var zalance: ZalanceAPI = null
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	regex.compile("^[0-9]*$")
 	zalance = ZalanceAPI.new()
 	add_child(zalance)
 	load_data()
-	
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
 
 func _on_project_id_text_changed():
 	project_id = %ProjectId.text
 	#print("project_id: " + project_id)
 	save()
 
+
 func _on_return_url_text_changed():
 	return_url = %ReturnUrl.text
 	#print("return_url: " + return_url)
 	save()
 
+
 func _on_livemode_check_box_pressed():
 	livemode = %LivemodeCheckBox.button_pressed
 	#print("_on_livemode_check_box_pressed: " + str(livemode))
 	save()
+
 
 func _on_column_count_text_changed():
 	if regex.search(%Columns.text):
@@ -45,6 +51,7 @@ func _on_column_count_text_changed():
 		%Columns.text = str(columns)
 	%Columns.set_caret_column(%Columns.text.length())
 
+
 func _on_item_width_text_changed():
 	if regex.search(%ItemWidth.text):
 		item_width = int(%ItemWidth.text)
@@ -52,6 +59,7 @@ func _on_item_width_text_changed():
 	else:
 		%ItemWidth.text = str(item_width)
 	%ItemWidth.set_caret_column(%ItemWidth.text.length())
+
 
 func _on_item_height_text_changed():
 	if regex.search(%ItemHeight.text):
@@ -61,9 +69,11 @@ func _on_item_height_text_changed():
 		%ItemHeight.text = str(item_height)
 	%ItemHeight.set_caret_column(%ItemHeight.text.length())
 
+
 func _on_button_pressed():
 	%Output.text = "Testing Zalance connection to project..."
 	var err = zalance.get_prices(_on_prices_received, 50, 1)
+
 
 func _on_prices_received(response):
 	#$Output.text = "test: " + response.message + ", error: " + str(response.error)
@@ -73,8 +83,10 @@ func _on_prices_received(response):
 		%Output.text += '\nSuccess!'
 		%Output.text += '\n' + "Item count: " + str(response.data.items.size())
 
+
 func _on_tab_bar_tab_selected(tab):
 	print(str(tab))
+
 
 func save() -> void:
 	var data := ZalanceData.new()
@@ -94,6 +106,7 @@ func save() -> void:
 	
 	# Refresh the data of the current zalance API node
 	zalance.load_data()
+
 
 func load_data() -> void:
 	var fileExists = FileAccess.file_exists(ZalanceData.save_path)
@@ -116,6 +129,4 @@ func load_data() -> void:
 	#print("item_width: " + %ItemWidth.text)
 	#print("item_height: " + %ItemHeight.text)
 	#print("data: ", project_id, " ", return_url, " ", livemode)
-
-
 

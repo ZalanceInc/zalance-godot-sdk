@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://b3jrk0l218vf6"]
 
-[ext_resource type="FontFile" uid="uid://b14j3l8ja3be4" path="res://assets/fonts/static/Montserrat-Regular.ttf" id="1_q8pwd"]
+[ext_resource type="FontFile" uid="uid://b14j3l8ja3be4" path="res://addons/zalance/assets/fonts/static/Montserrat-Regular.ttf" id="1_q8pwd"]
 
 [resource]
 default_font = ExtResource("1_q8pwd")
