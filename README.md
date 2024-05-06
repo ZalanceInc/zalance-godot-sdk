@@ -1,6 +1,7 @@
-# Zalance Addon for Godot Engine
-[![Zalance](https://zalance.net/wp-content/uploads/2023/08/logo-diamond-blue-441x84-1.png)](https://zalance.net/playfab-downloads)
-## _A free addon for Godot to interact with the Zalance API_
+# Zalance Addon for Godot 4
+[![Zalance](https://d3swsyk9jwm5ry.cloudfront.net/images/logo-diamond-black-441x84.png)](https://zalance.net/playfab-downloads)
+
+### _A free addon for Godot to interact with the Zalance API_
 
 [![latest release](https://img.shields.io/badge/release-1.0.0-green)](https://gitlab.com/brettops/tools/badgie/-/releases) ![Godot Badge](https://img.shields.io/badge/Godot%204-414143?logo=godotengine&logoColor=468CBE&style=flat)
 
