@@ -73,7 +73,8 @@ func _on_item_height_text_changed():
 func _on_button_pressed():
 	%Output.text = "Testing Zalance connection to project..."
 	var err = zalance.get_prices(_on_prices_received, 50, 1)
-
+	if err:
+		%Output.text += "\nError retrieving price items. \nError: " + str(err)
 
 func _on_prices_received(response):
 	#$Output.text = "test: " + response.message + ", error: " + str(response.error)

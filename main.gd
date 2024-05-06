@@ -5,7 +5,7 @@ extends Node
 func _ready():
 	# Set to a test account Id
 	Zalance.set_account_id("1120456E26F41EFC")
-	Zalance.set_locale("es-ES")
+	Zalance.set_locale("en-US")
 	store_scene.fetch_items()
 	
 	print("Zalance test account Id: " + Zalance.account_id)

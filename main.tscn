@@ -21,17 +21,25 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_qb3j3")
 
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.019
+anchor_right = 0.17
+anchor_bottom = 0.096
+offset_top = 0.319999
+offset_right = -0.600006
+offset_bottom = -0.120003
+theme_override_font_sizes/font_size = 40
+text = "Store"
+
 [node name="StoreScene" parent="." instance=ExtResource("1_sg0j3")]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.039
-anchor_top = 0.167
-anchor_right = 0.959
-anchor_bottom = 0.972
-offset_left = 0.079998
-offset_top = -0.240005
-offset_right = -0.52002
-offset_bottom = 0.159973
+anchor_top = 0.128
+offset_top = -0.160004
+offset_bottom = -1.0
 
 [node name="Order" parent="." instance=ExtResource("2_ul0kj")]
 visible = false

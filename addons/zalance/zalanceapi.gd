@@ -10,7 +10,9 @@ const API_PUBLIC_DOMAIN = "https://api.zalance.net/api:Kp9D5gmw"
 const API_PRICES_GET = API_PUBLIC_DOMAIN + '/price/{project_uuid}'
 const API_SESSION_CREATE = API_PUBLIC_DOMAIN + '/session'
 const API_SESSION_STATUS = API_PUBLIC_DOMAIN + '/session/status'
-var project_id = ""
+const TEST_PROJECT_ID = "bb632f31-9e6b-439f-8f9a-1d019085a391"
+const TEST_ACCOUNT_ID = "1120456E26F41EFC"
+var project_id = TEST_PROJECT_ID
 var return_url = ""
 var livemode = false
 var automatic_tax = true
@@ -60,6 +62,9 @@ func load_data() -> void:
 		project_id = data.project_id
 		return_url = data.return_url
 		livemode = data.livemode
+		
+		if project_id == TEST_PROJECT_ID:
+			push_warning("Zalance test project Id loaded. This is for demonstration purposes only. Switch this with your project Id in Zalance editor panel.")
 
 
 func set_account_id(id: String) -> void:
@@ -343,6 +348,8 @@ func _check_account_id() -> Error:
 		var errMsg = get_translated_msg("invalid_account_id")
 		push_error(errMsg)
 		return ERR_INVALID_PARAMETER
+	elif account_id == TEST_ACCOUNT_ID:
+		push_warning("Zalance test account Id detected. This account Id is for testing only. Please update this with a call to Zalance.set_account_id.")
 	return OK
 
 
