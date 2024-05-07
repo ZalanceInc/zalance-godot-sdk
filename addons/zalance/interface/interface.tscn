@@ -126,6 +126,7 @@ offset_top = 7.0
 offset_right = 210.0
 offset_bottom = 46.0
 scale = Vector2(0.776368, 0.613043)
+text = "3"
 
 [node name="ItemWidthLabel" type="Label" parent="TabContainer/UI Layout"]
 layout_mode = 0
@@ -145,6 +146,7 @@ offset_top = 37.0
 offset_right = 210.457
 offset_bottom = 76.0
 scale = Vector2(0.776368, 0.613043)
+text = "200"
 
 [node name="ItemHeightLabel" type="Label" parent="TabContainer/UI Layout"]
 layout_mode = 0
@@ -164,6 +166,7 @@ offset_top = 67.0
 offset_right = 211.0
 offset_bottom = 106.0
 scale = Vector2(0.776368, 0.613043)
+text = "250"
 
 [connection signal="pressed" from="TabContainer/Project/TestConnectionButton" to="." method="_on_button_pressed"]
 [connection signal="text_changed" from="TabContainer/Project/ProjectId" to="." method="_on_project_id_text_changed"]

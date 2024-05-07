@@ -1,4 +1,4 @@
-extends GridContainer
+extends FlowContainer
 class_name ZalanceItemGrid
 
 var ZalanceItemClass = preload("./item.tscn")
@@ -22,7 +22,7 @@ func load_data() -> void:
 	var fileExists = FileAccess.file_exists(ZalanceData.save_path)
 	if fileExists:
 		var data:ZalanceData = load(ZalanceData.save_path)
-		self.columns = data.columns
+		# self.columns = data.columns
 		set_array_item_size(data.item_width, data.item_height)
 
 
@@ -68,7 +68,9 @@ func get_item_size():
 
 
 func expand_item_size(item, grid_width, y):
-	var c = columns if columns > 0 else 1
-	var x = grid_width / (columns if columns > 0 else 1)
-	var size = Vector2(x, y)
-	item.set_custom_minimum_size(size)
+	#var c = columns if columns > 0 else 1
+	#var x = grid_width / (columns if columns > 0 else 1)
+	#var size = Vector2(x, y)
+	#item.set_custom_minimum_size(size)
+	pass
+
