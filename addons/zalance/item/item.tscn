@@ -3,26 +3,25 @@
 [ext_resource type="Script" path="res://addons/zalance/item/item.gd" id="1_4qg72"]
 [ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://addons/zalance/zalance_theme.tres" id="2_btiyw"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qcmq6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dntj3"]
+bg_color = Color(0, 0, 0, 0.862745)
+shadow_color = Color(1, 1, 1, 1)
 
-[node name="Item" type="Control"]
-layout_mode = 3
-anchor_right = 0.156
-anchor_bottom = 0.347
-offset_right = 0.319992
-offset_bottom = 0.160004
+[node name="Item" type="TextureButton"]
+anchors_preset = -1
+offset_right = 200.0
+offset_bottom = 250.0
 script = ExtResource("1_4qg72")
 
 [node name="Panel" type="Panel" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(200, 250)
+layout_mode = 0
+offset_right = 204.0
+offset_bottom = 256.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dntj3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 250.0
@@ -83,12 +82,14 @@ theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
 
-[node name="ItemButton" type="Button" parent="VBoxContainer/PanelMargin/PanelVBox/PriceMarginContainer"]
+[node name="ItemPrice" type="Label" parent="VBoxContainer/PanelMargin/PanelVBox/PriceMarginContainer"]
 unique_name_in_owner = true
-material = SubResource("CanvasItemMaterial_qcmq6")
 layout_mode = 2
 theme = ExtResource("2_btiyw")
 theme_override_font_sizes/font_size = 25
 text = "$1.99"
+horizontal_alignment = 1
 
-[connection signal="pressed" from="VBoxContainer/PanelMargin/PanelVBox/PriceMarginContainer/ItemButton" to="." method="_on_item_button_pressed"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

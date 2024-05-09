@@ -1,41 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://che5wa3etilof"]
+[gd_scene load_steps=6 format=3 uid="uid://che5wa3etilof"]
 
 [ext_resource type="Script" path="res://addons/zalance/order/order.gd" id="1_lmkxn"]
 [ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://addons/zalance/zalance_theme.tres" id="3_fexv2"]
 
-[node name="Order" type="Control"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcye1"]
+bg_color = Color(0.231373, 0.207843, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_myfad"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6h1ot"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Panel" type="Panel"]
+anchors_preset = -1
+offset_right = 600.0
+offset_bottom = 450.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tcye1")
 script = ExtResource("1_lmkxn")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.078
-anchor_top = 0.185
-anchor_right = 0.922
-anchor_bottom = 0.801
-offset_left = 0.159996
-offset_top = -0.199997
-offset_right = -0.160034
-offset_bottom = 0.279968
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelMargin" type="MarginContainer" parent="Panel"]
+[node name="PanelMargin" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,30 +41,30 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/PanelMargin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelMargin"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/PanelMargin/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelMargin/VBoxContainer"]
 layout_mode = 2
 
-[node name="PanelVBox" type="VBoxContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(550, 0)
+[node name="PanelVBox" type="VBoxContainer" parent="PanelMargin/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="ItemImage" type="TextureRect" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/PanelVBox"]
+[node name="ItemImage" type="TextureRect" parent="PanelMargin/VBoxContainer/HBoxContainer/PanelVBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 3
 
-[node name="TitleMargin" type="MarginContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/PanelVBox"]
+[node name="TitleMargin" type="MarginContainer" parent="PanelMargin/VBoxContainer/HBoxContainer/PanelVBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 20
 
-[node name="ItemTitle" type="RichTextLabel" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/PanelVBox/TitleMargin"]
+[node name="ItemTitle" type="RichTextLabel" parent="PanelMargin/VBoxContainer/HBoxContainer/PanelVBox/TitleMargin"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_fexv2")
@@ -79,118 +73,129 @@ theme_override_font_sizes/bold_font_size = 25
 text = "Pellentesque Nec Orci"
 fit_content = true
 
-[node name="DescMargin" type="MarginContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/PanelVBox"]
+[node name="DescMargin" type="MarginContainer" parent="PanelMargin/VBoxContainer/HBoxContainer/PanelVBox"]
 layout_mode = 2
 theme = ExtResource("3_fexv2")
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 20
 
-[node name="ItemDesc" type="RichTextLabel" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/PanelVBox/DescMargin"]
-unique_name_in_owner = true
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelMargin/VBoxContainer/HBoxContainer/PanelVBox/DescMargin"]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ItemDesc" type="RichTextLabel" parent="PanelMargin/VBoxContainer/HBoxContainer/PanelVBox/DescMargin/ScrollContainer"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("3_fexv2")
 theme_override_font_sizes/normal_font_size = 18
 theme_override_font_sizes/bold_font_size = 25
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non sapien sit amet eros scelerisque vehicula in ut felis."
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non sapien sit amet eros scelerisque vehicula in ut felis. "
 fit_content = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelMargin/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 alignment = 1
 
-[node name="PriceMargin" type="MarginContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="PriceMargin" type="MarginContainer" parent="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 40
 
-[node name="ItemPrice" type="RichTextLabel" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/PriceMargin"]
+[node name="ItemPrice" type="Label" parent="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/PriceMargin"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("3_fexv2")
-theme_override_font_sizes/normal_font_size = 25
-bbcode_enabled = true
-text = "[center]$1.99[/center]"
-fit_content = true
+theme_override_font_sizes/font_size = 25
+text = "$1.99"
+horizontal_alignment = 1
 
-[node name="QuantityMargin" type="MarginContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="QuantityMargin" type="MarginContainer" parent="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/QuantityMargin"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/QuantityMargin"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/QuantityMargin/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/QuantityMargin/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_right = 50
 
-[node name="Label" type="Label" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/QuantityMargin/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/QuantityMargin/HBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "Quantity"
 
-[node name="LineEdit" type="LineEdit" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/QuantityMargin/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/QuantityMargin/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1"
 placeholder_text = "1"
 alignment = 2
 
-[node name="AddToCartMargin" type="MarginContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="AddToCartMargin" type="MarginContainer" parent="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
 
-[node name="AddToCartBtn" type="Button" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/AddToCartMargin"]
+[node name="AddToCartBtn" type="Button" parent="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/AddToCartMargin"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Add to Cart"
 
-[node name="BuyNowMargin" type="MarginContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="BuyNowMargin" type="MarginContainer" parent="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
 
-[node name="BuyNowBtn" type="Button" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/BuyNowMargin"]
+[node name="BuyNowBtn" type="Button" parent="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/BuyNowMargin"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_myfad")
 text = "Buy Now"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/PanelMargin/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelMargin/VBoxContainer"]
 layout_mode = 2
 
-[node name="BackMargin" type="MarginContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(150, 50)
+[node name="BackMargin" type="MarginContainer" parent="PanelMargin/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 10
 
-[node name="BackButton" type="Button" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer2/BackMargin"]
+[node name="BackButton" type="Button" parent="PanelMargin/VBoxContainer/HBoxContainer2/BackMargin"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_6h1ot")
 text = "Back"
 
-[node name="ErrorMsgMargin" type="MarginContainer" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(600, 0)
+[node name="ErrorMsgMargin" type="MarginContainer" parent="PanelMargin/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_constants/margin_top = 0
 
-[node name="ErrorMsg" type="RichTextLabel" parent="Panel/PanelMargin/VBoxContainer/HBoxContainer2/ErrorMsgMargin"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelMargin/VBoxContainer/HBoxContainer2/ErrorMsgMargin"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ErrorMsg" type="RichTextLabel" parent="PanelMargin/VBoxContainer/HBoxContainer2/ErrorMsgMargin/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("3_fexv2")
 theme_override_colors/default_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 18
@@ -198,6 +203,5 @@ theme_override_font_sizes/bold_font_size = 25
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non sapien sit amet eros scelerisque vehicula in ut felis."
 fit_content = true
 
-[connection signal="pressed" from="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/AddToCartMargin/AddToCartBtn" to="." method="_on_add_to_cart_btn_pressed"]
-[connection signal="pressed" from="Panel/PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/BuyNowMargin/BuyNowBtn" to="." method="_on_buy_now_btn_pressed"]
-[connection signal="pressed" from="Panel/PanelMargin/VBoxContainer/HBoxContainer2/BackMargin/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="PanelMargin/VBoxContainer/HBoxContainer/VBoxContainer/BuyNowMargin/BuyNowBtn" to="." method="_on_buy_now_btn_pressed"]
+[connection signal="pressed" from="PanelMargin/VBoxContainer/HBoxContainer2/BackMargin/BackButton" to="." method="_on_back_button_pressed"]

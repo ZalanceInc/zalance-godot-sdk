@@ -48,3 +48,10 @@ offset_bottom = 0.0
 [node name="Order" parent="." instance=ExtResource("2_ul0kj")]
 visible = false
 layout_mode = 1
+anchors_preset = 0
+offset_left = 305.0
+offset_top = 133.0
+offset_right = 948.0
+offset_bottom = 583.0
+grow_horizontal = 1
+grow_vertical = 1

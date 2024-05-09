@@ -3,7 +3,8 @@ extends Control
 
 var _item_data = null
 var _image_url = null
-
+@onready var _orig_size: Vector2 = get_size()
+@onready var _orig_scale: Vector2 = get_scale()
 
 # Called when the node enters the scene tree for the first time.
 #func _ready():
@@ -19,12 +20,13 @@ func set_data(item_data):
 	_item_data = item_data
 	%ItemTitle.text = item_data.name
 	set_image(item_data.image.url)
-	%ItemButton.text = item_data.display_amount
+	%ItemPrice.text = item_data.display_amount
 
 
 func update_size(x, y):
-	set_size(x, y)
-
+	var v = Vector2(x, y)
+	set_size(v)
+	_orig_size = v
 
 func set_image(url: String):
 	_image_url = url
@@ -47,5 +49,27 @@ func _on_image_request_complete(response):
 
 func _on_item_button_pressed():
 	ZalanceSignals.item_clicked.emit(_item_data)
-	pass # Replace with function body.
+
+
+func _on_pressed():
+	ZalanceSignals.item_clicked.emit(_item_data)
+
+
+func _on_mouse_entered():
+	var v = Vector2(_orig_size.x + 10, _orig_size.y + 10)
+	var s = get_scale() * 1.01
+	set_scale(s)
+	#var styleBox := StyleBoxFlat.new()
+	#styleBox.shadow_size = 5
+	#styleBox.shadow_color = Color(1, 1, 1, 0.6)
+	#add_theme_stylebox_override("normal", styleBox)
+	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+
+
+func _on_mouse_exited():
+	set_scale(_orig_scale)
+	#var stylebox_flat := StyleBoxFlat.new()
+	#stylebox_flat.shadow_size = 0
+	#add_theme_stylebox_override("normal", stylebox_flat)
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
