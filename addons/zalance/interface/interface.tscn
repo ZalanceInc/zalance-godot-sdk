@@ -51,7 +51,6 @@ offset_top = 67.0
 offset_right = 481.944
 offset_bottom = 106.0
 scale = Vector2(0.776368, 0.613043)
-text = "https://zalance.net"
 
 [node name="ProjectIdLabel2" type="Label" parent="TabContainer/Project"]
 layout_mode = 0
@@ -108,32 +107,12 @@ offset_bottom = 163.0
 visible = false
 layout_mode = 2
 
-[node name="ColumnsLabel" type="Label" parent="TabContainer/UI Layout"]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 6.0
-offset_right = 117.0
-offset_bottom = 30.0
-text = "Columns:"
-horizontal_alignment = 2
-
-[node name="Columns" type="TextEdit" parent="TabContainer/UI Layout"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-offset_left = 122.0
-offset_top = 7.0
-offset_right = 210.0
-offset_bottom = 46.0
-scale = Vector2(0.776368, 0.613043)
-text = "3"
-
 [node name="ItemWidthLabel" type="Label" parent="TabContainer/UI Layout"]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 37.0
+offset_top = 12.0
 offset_right = 117.0
-offset_bottom = 61.0
+offset_bottom = 36.0
 text = "Item Width:"
 horizontal_alignment = 2
 
@@ -142,18 +121,18 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 offset_left = 122.457
-offset_top = 37.0
+offset_top = 12.0
 offset_right = 210.457
-offset_bottom = 76.0
+offset_bottom = 51.0
 scale = Vector2(0.776368, 0.613043)
-text = "200"
+text = "50"
 
 [node name="ItemHeightLabel" type="Label" parent="TabContainer/UI Layout"]
 layout_mode = 0
 offset_left = 7.0
-offset_top = 67.0
+offset_top = 42.0
 offset_right = 118.0
-offset_bottom = 91.0
+offset_bottom = 66.0
 text = "Item Height:"
 horizontal_alignment = 2
 
@@ -162,16 +141,15 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 offset_left = 123.0
-offset_top = 67.0
+offset_top = 42.0
 offset_right = 211.0
-offset_bottom = 106.0
+offset_bottom = 81.0
 scale = Vector2(0.776368, 0.613043)
-text = "250"
+text = "50"
 
 [connection signal="pressed" from="TabContainer/Project/TestConnectionButton" to="." method="_on_button_pressed"]
 [connection signal="text_changed" from="TabContainer/Project/ProjectId" to="." method="_on_project_id_text_changed"]
 [connection signal="text_changed" from="TabContainer/Project/ReturnUrl" to="." method="_on_return_url_text_changed"]
 [connection signal="pressed" from="TabContainer/Project/LivemodeCheckBox" to="." method="_on_livemode_check_box_pressed"]
-[connection signal="text_changed" from="TabContainer/UI Layout/Columns" to="." method="_on_column_count_text_changed"]
 [connection signal="text_changed" from="TabContainer/UI Layout/ItemWidth" to="." method="_on_item_width_text_changed"]
 [connection signal="text_changed" from="TabContainer/UI Layout/ItemHeight" to="." method="_on_item_height_text_changed"]

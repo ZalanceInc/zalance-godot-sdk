@@ -21,7 +21,6 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [node name="Panel" type="Panel"]
-anchors_preset = -1
 offset_right = 600.0
 offset_bottom = 450.0
 grow_horizontal = 2

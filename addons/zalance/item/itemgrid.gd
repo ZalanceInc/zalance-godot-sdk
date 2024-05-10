@@ -5,7 +5,6 @@ var ZalanceItemClass = preload("./item.tscn")
 var items: PackedByteArray = []
 var item_size_x = 200	
 var item_size_y = 250
-var _columns = 3
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,10 +18,10 @@ func _ready():
 
 
 func load_data() -> void:
+	_remove_children()
 	var fileExists = FileAccess.file_exists(ZalanceData.save_path)
 	if fileExists:
 		var data:ZalanceData = load(ZalanceData.save_path)
-		# self.columns = data.columns
 		set_array_item_size(data.item_width, data.item_height)
 
 
@@ -59,6 +58,11 @@ func set_array_item_size(x: int, y: int):
 
 
 func set_item_size(item, x: int, y: int):
+	if x < ZalanceData.MIN_ITEM_WIDTH:
+		x = ZalanceData.MIN_ITEM_WIDTH
+	if y < ZalanceData.MIN_ITEM_HEIGHT:
+		y = ZalanceData.MIN_ITEM_HEIGHT
+	
 	var size = Vector2(x, y)
 	item.set_custom_minimum_size(size)
 
@@ -68,9 +72,5 @@ func get_item_size():
 
 
 func expand_item_size(item, grid_width, y):
-	#var c = columns if columns > 0 else 1
-	#var x = grid_width / (columns if columns > 0 else 1)
-	#var size = Vector2(x, y)
-	#item.set_custom_minimum_size(size)
 	pass
 

@@ -16,14 +16,15 @@ offset_bottom = 0.160004
 script = ExtResource("1_4qg72")
 
 [node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(200, 250)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_dntj3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 4
@@ -39,13 +40,13 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="ItemImage" type="TextureRect" parent="VBoxContainer/MarginContainer"]
+[node name="ItemImage" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="PanelMargin" type="MarginContainer" parent="VBoxContainer"]
+[node name="PanelMargin" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 5
@@ -53,17 +54,17 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 2
 
-[node name="PanelVBox" type="VBoxContainer" parent="VBoxContainer/PanelMargin"]
+[node name="PanelVBox" type="VBoxContainer" parent="Panel/VBoxContainer/PanelMargin"]
 layout_mode = 2
 
-[node name="TitleMargin" type="MarginContainer" parent="VBoxContainer/PanelMargin/PanelVBox"]
+[node name="TitleMargin" type="MarginContainer" parent="Panel/VBoxContainer/PanelMargin/PanelVBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 5
 
-[node name="ItemTitle" type="Label" parent="VBoxContainer/PanelMargin/PanelVBox/TitleMargin"]
+[node name="ItemTitle" type="Label" parent="Panel/VBoxContainer/PanelMargin/PanelVBox/TitleMargin"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -72,13 +73,13 @@ text = "Item Name Item Name Item Name "
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="PriceMarginContainer" type="MarginContainer" parent="VBoxContainer/PanelMargin/PanelVBox"]
+[node name="PriceMarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/PanelMargin/PanelVBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
 
-[node name="ItemPrice" type="Label" parent="VBoxContainer/PanelMargin/PanelVBox/PriceMarginContainer"]
+[node name="ItemPrice" type="Label" parent="Panel/VBoxContainer/PanelMargin/PanelVBox/PriceMarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_btiyw")
