@@ -4,7 +4,7 @@ extends EditorPlugin
 const ZALANCE_AUTOLOAD_NAME = "Zalance"
 const ZALANCE_AUTOLOAD_SOURCE = "./zalanceapi.gd"
 #const EVENTS_AUTOLOAD_NAME = "ZalanceEvents"
-#const EVENTS_AUTOLOAD_SOURCE = "./signals.gd"
+#const EVENTS_AUTOLOAD_SOURCE = "./events.gd"
 var interface = preload("./interface/interface.tscn").instantiate()
 
 

@@ -8,8 +8,9 @@ var item_width: int = 200
 var item_height: int = 250
 var regex = RegEx.new()
 const ZalanceAPI = preload("../zalanceapi.gd")
+const ZalanceItemGrid = preload("../item/itemgrid.gd")
 var zalance: ZalanceAPI = null
-
+var update_scene_timer: Timer = Timer.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,6 +18,12 @@ func _ready():
 	zalance = ZalanceAPI.new()
 	add_child(zalance)
 	load_data()
+	
+	update_scene_timer.one_shot = false;
+	update_scene_timer.autostart = true;
+	update_scene_timer.wait_time = 0.1;
+	update_scene_timer.timeout.connect(update_scene)
+	add_child(update_scene_timer)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -67,6 +74,7 @@ func _on_button_pressed():
 	if err:
 		%Output.text += "\nError retrieving price items. \nError: " + str(err)
 
+
 func _on_prices_received(response):
 	#$Output.text = "test: " + response.message + ", error: " + str(response.error)
 	if response.error:
@@ -96,6 +104,8 @@ func save() -> void:
 		print("Zalance data saved.")
 	
 	%LivemodeCheckBox.button_pressed = livemode
+	
+	update_scene()
 
 
 func load_data() -> void:
@@ -117,3 +127,18 @@ func update_form() -> void:
 	%LivemodeCheckBox.button_pressed = livemode
 	%ItemWidth.text = str(item_width)
 	%ItemHeight.text = str(item_height)
+
+
+func update_scene() -> void:
+	if get_tree().edited_scene_root == null:
+		return
+	
+	var node = get_tree().edited_scene_root.find_child("ZalanceItemGrid")
+	#print("node: ", node)
+	if node != null:
+		var size = Vector2(item_width, item_height)
+		var children: Array[Node] = node.get_children()
+		#print("child size: ", children.size())
+		for n in children:
+			n.set_custom_minimum_size(size)
+

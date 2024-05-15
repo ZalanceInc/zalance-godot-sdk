@@ -59,6 +59,7 @@ func _on_image_request_complete(response):
 
 
 func _on_item_clicked(item_data):
+	_show_error(null)
 	visible = true
 	set_data(item_data)
 

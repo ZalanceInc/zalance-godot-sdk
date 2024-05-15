@@ -51,6 +51,7 @@ offset_top = 67.0
 offset_right = 481.944
 offset_bottom = 106.0
 scale = Vector2(0.776368, 0.613043)
+text = "https://zalance.net"
 
 [node name="ProjectIdLabel2" type="Label" parent="TabContainer/Project"]
 layout_mode = 0
@@ -109,43 +110,43 @@ layout_mode = 2
 
 [node name="ItemWidthLabel" type="Label" parent="TabContainer/UI Layout"]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 12.0
-offset_right = 117.0
-offset_bottom = 36.0
-text = "Item Width:"
+offset_left = 13.0187
+offset_top = 14.0
+offset_right = 141.019
+offset_bottom = 38.0
+text = "Grid Item Width:"
 horizontal_alignment = 2
 
 [node name="ItemWidth" type="TextEdit" parent="TabContainer/UI Layout"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-offset_left = 122.457
-offset_top = 12.0
-offset_right = 210.457
-offset_bottom = 51.0
+offset_left = 147.551
+offset_top = 14.0
+offset_right = 235.551
+offset_bottom = 53.0
 scale = Vector2(0.776368, 0.613043)
-text = "50"
+text = "200"
 
 [node name="ItemHeightLabel" type="Label" parent="TabContainer/UI Layout"]
 layout_mode = 0
-offset_left = 7.0
-offset_top = 42.0
-offset_right = 118.0
-offset_bottom = 66.0
-text = "Item Height:"
+offset_left = 12.0187
+offset_top = 44.0
+offset_right = 145.019
+offset_bottom = 68.0
+text = "Grid Item Height:"
 horizontal_alignment = 2
 
 [node name="ItemHeight" type="TextEdit" parent="TabContainer/UI Layout"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-offset_left = 123.0
-offset_top = 42.0
-offset_right = 211.0
-offset_bottom = 81.0
+offset_left = 148.094
+offset_top = 44.0
+offset_right = 236.094
+offset_bottom = 83.0
 scale = Vector2(0.776368, 0.613043)
-text = "50"
+text = "250"
 
 [connection signal="pressed" from="TabContainer/Project/TestConnectionButton" to="." method="_on_button_pressed"]
 [connection signal="text_changed" from="TabContainer/Project/ProjectId" to="." method="_on_project_id_text_changed"]

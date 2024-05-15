@@ -3,12 +3,13 @@ class_name ZalanceItemGrid
 
 var ZalanceItemClass = preload("./item.tscn")
 var items: PackedByteArray = []
-var item_size_x = 200	
+var item_size_x = 200
 var item_size_y = 250
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("on ready called for item grid")
 	load_data()
 
 
@@ -51,9 +52,7 @@ func _add_item(item_data):
 func set_array_item_size(x: int, y: int):
 	item_size_x = x
 	item_size_y = y
-	
 	for n in get_children():
-		var size = Vector2(x, y)
 		set_item_size(n, x, y)
 
 

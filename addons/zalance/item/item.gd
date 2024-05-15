@@ -28,6 +28,7 @@ func update_size(x, y):
 	set_size(v)
 	_orig_size = v
 
+
 func set_image(url: String):
 	_image_url = url
 	if _image_url != null and _image_url.length() > 0:
@@ -45,10 +46,6 @@ func _on_image_request_complete(response):
 	
 	# Display the image in a TextureRect node.
 	%ItemImage.texture = texture
-
-
-func _on_item_button_pressed():
-	ZalanceSignals.item_clicked.emit(_item_data)
 
 
 func _on_pressed():

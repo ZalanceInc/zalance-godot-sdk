@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhw85att0c57b"]
+[gd_scene load_steps=5 format=3 uid="uid://bhw85att0c57b"]
 
 [ext_resource type="Script" path="res://addons/zalance/item/item.gd" id="1_4qg72"]
+[ext_resource type="Texture2D" uid="uid://dgvor8rs8218i" path="res://addons/zalance/assets/images/generic.jpg" id="2_4225k"]
 [ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://addons/zalance/zalance_theme.tres" id="2_btiyw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dntj3"]
 bg_color = Color(0, 0, 0, 0.784314)
 shadow_color = Color(1, 1, 1, 1)
 
-[node name="Item" type="TextureButton"]
-anchors_preset = -1
+[node name="ZalanceItem" type="Control"]
+layout_mode = 3
 anchor_right = 0.156
 anchor_bottom = 0.347
 offset_right = 0.319992
@@ -43,6 +44,7 @@ theme_override_constants/margin_bottom = 4
 [node name="ItemImage" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+texture = ExtResource("2_4225k")
 expand_mode = 1
 stretch_mode = 5
 
@@ -69,7 +71,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Item Name Item Name Item Name "
+text = "My Magical Item"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -87,6 +89,13 @@ theme_override_font_sizes/font_size = 25
 text = "$1.99"
 horizontal_alignment = 1
 
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
-[connection signal="pressed" from="." to="." method="_on_pressed"]
+[node name="TextureButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(200, 250)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[connection signal="mouse_entered" from="TextureButton" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="TextureButton" to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_pressed"]

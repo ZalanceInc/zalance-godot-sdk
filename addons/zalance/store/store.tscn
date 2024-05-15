@@ -1,14 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxaa046x45suv"]
+[gd_scene load_steps=5 format=3 uid="uid://cxaa046x45suv"]
 
 [ext_resource type="Script" path="res://addons/zalance/store/store.gd" id="1_1riqn"]
+[ext_resource type="PackedScene" uid="uid://bhw85att0c57b" path="res://addons/zalance/item/item.tscn" id="3_m6fja"]
 [ext_resource type="Theme" uid="uid://b3jrk0l218vf6" path="res://addons/zalance/zalance_theme.tres" id="3_tujj8"]
 [ext_resource type="Script" path="res://addons/zalance/item/itemgrid.gd" id="9_2vx7x"]
 
-[node name="VBoxContainer" type="VBoxContainer"]
+[node name="ZalanceStore" type="VBoxContainer"]
 offset_right = 1280.0
 offset_bottom = 720.0
-grow_horizontal = 2
-grow_vertical = 2
 script = ExtResource("1_1riqn")
 
 [node name="GridScroll" type="ScrollContainer" parent="."]
@@ -26,77 +25,57 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 script = ExtResource("9_2vx7x")
 
-[node name="Panel" type="Panel" parent="GridScroll/ZalanceItemGrid"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="Panel2" type="Panel" parent="GridScroll/ZalanceItemGrid"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="Panel3" type="Panel" parent="GridScroll/ZalanceItemGrid"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="Panel4" type="Panel" parent="GridScroll/ZalanceItemGrid"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="Panel5" type="Panel" parent="GridScroll/ZalanceItemGrid"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="Panel6" type="Panel" parent="GridScroll/ZalanceItemGrid"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="Panel7" type="Panel" parent="GridScroll/ZalanceItemGrid"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="Panel8" type="Panel" parent="GridScroll/ZalanceItemGrid"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="Panel9" type="Panel" parent="GridScroll/ZalanceItemGrid"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="Panel10" type="Panel" parent="GridScroll/ZalanceItemGrid"]
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-
-[node name="Header" type="VBoxContainer" parent="."]
+[node name="ZalanceItem" parent="GridScroll/ZalanceItemGrid" instance=ExtResource("3_m6fja")]
+custom_minimum_size = Vector2(300, 250)
 layout_mode = 2
 
-[node name="MessageMargin" type="MarginContainer" parent="Header"]
+[node name="ZalanceItem2" parent="GridScroll/ZalanceItemGrid" instance=ExtResource("3_m6fja")]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+
+[node name="ZalanceItem3" parent="GridScroll/ZalanceItemGrid" instance=ExtResource("3_m6fja")]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+
+[node name="ZalanceItem4" parent="GridScroll/ZalanceItemGrid" instance=ExtResource("3_m6fja")]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+
+[node name="ZalanceItem5" parent="GridScroll/ZalanceItemGrid" instance=ExtResource("3_m6fja")]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+
+[node name="ZalanceItem6" parent="GridScroll/ZalanceItemGrid" instance=ExtResource("3_m6fja")]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+
+[node name="ZalanceItem7" parent="GridScroll/ZalanceItemGrid" instance=ExtResource("3_m6fja")]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+
+[node name="ZalanceItem8" parent="GridScroll/ZalanceItemGrid" instance=ExtResource("3_m6fja")]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+
+[node name="ZalanceItem9" parent="GridScroll/ZalanceItemGrid" instance=ExtResource("3_m6fja")]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+
+[node name="ZalanceItem10" parent="GridScroll/ZalanceItemGrid" instance=ExtResource("3_m6fja")]
+custom_minimum_size = Vector2(300, 250)
+layout_mode = 2
+
+[node name="Message" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MessageMargin" type="MarginContainer" parent="Message"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 
-[node name="StoreMessage" type="RichTextLabel" parent="Header/MessageMargin"]
+[node name="StoreMessage" type="RichTextLabel" parent="Message/MessageMargin"]
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2

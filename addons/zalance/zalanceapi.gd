@@ -355,7 +355,7 @@ func _check_account_id() -> Error:
 		var errMsg = get_translated_msg("invalid_account_id")
 		push_error(errMsg)
 		return ERR_INVALID_PARAMETER
-	elif account_id == Zalance.TEST_ACCOUNT_ID:
+	elif account_id == ZalanceData.TEST_ACCOUNT_ID:
 		push_warning("Zalance test account Id detected. This account Id is for testing only. Please update this with a call to Zalance.set_account_id.")
 	return OK
 
